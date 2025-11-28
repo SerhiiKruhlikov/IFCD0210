@@ -1,0 +1,18 @@
+/* Selectores */
+
+
+/* Selector de elemento */
+h1 {
+    color: greenyellow !important;
+}
+
+
+/* Selectores por id */
+
+
+/* Selectores genéricos */
+.encabezado-seis {
+    color: magenta;
+    background: yellow;
+    font-size: inherit;
+}
