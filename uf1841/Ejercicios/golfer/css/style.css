@@ -1,0 +1,163 @@
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+body {
+    font-family: 'Cabin', sans-serif;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+
+h1 {
+    font-size: 2.8rem;
+    line-height: 1.25;
+}
+h2 {
+    font-size: 2rem;
+}
+
+p,
+ul,
+li,
+a {
+    font-size: 1.1875rem;
+    line-height: 1.75;
+}
+a {
+    color: #008cff;
+}
+
+/* Wrapper */
+.wrapper {
+    width: 100%;
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+}
+
+/* Header */
+header {
+    padding: 3rem 0;
+}
+
+/* Navigation */
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+nav ul li {
+    display: inline-block;
+}
+nav ul li a {
+    font-weight: 300;
+    text-decoration: none;
+    display: block;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    transition: .3s all;
+}
+/* Selected */
+nav ul li a.selected {
+    background-color: #e8f6ff !important;
+    color: #000 !important;
+    font-weight: 700;
+    transition: .3s all;
+}
+
+/* Hover */
+nav ul li a:hover {
+    background-color: #f6f6f6;
+    color: #005aa0;
+    transition: .3s all;
+}
+
+/* Main */
+main {
+    background: #fff;
+}
+main *:last-child {
+    margin-bottom: 0;
+}
+main a {
+    color: #0080ff;
+    text-decoration-color: #eee;
+    text-underline-offset: .3125rem;
+    transition: .3s all;
+}
+/* Hover */
+main a:hover,
+main a:focus {
+    color: #0062c7;
+    text-decoration-color: #d9d9d9;
+    text-underline-offset: .4375rem;
+    transition: .3s all;
+}
+
+main h2,
+main ul,
+main p {
+    margin-bottom: 1.5rem;
+}
+main ul li::marker {
+    color: #008cff;
+}
+.page-title {
+    margin-bottom: 3rem;
+}
+/* Blog */
+.blog {
+    margin-top: 5rem;
+}
+.blog .post {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+}
+.blog .post .date {
+    color: #838383;
+    margin: 0;
+}
+.blog .post .title {
+    color: #000;
+    margin: 0;
+}
+.blog .post .title a {
+    font-size: inherit;
+    color: inherit;
+    line-height: 1.25;
+}
+.blog .post .description {
+    margin: 0;
+}
+.blog .post .status {
+    background-color: #8bccff;
+    color: #fff;
+    padding: .25rem .5rem;
+}
+
+
+/* Footer */
+footer {
+    padding: 3rem 0;
+}
+footer a {
+    color: #000;
+    font-size: .95rem;
+    font-weight: 600;
+}
+.left-block,
+.right-block {
+    width: 49%;
+    display: inline-block;
+    text-align: center;
+}
+.right-block ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+

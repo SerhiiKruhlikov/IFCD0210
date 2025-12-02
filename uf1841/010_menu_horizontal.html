@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Menú Horizontal</title>
+	<style>
+		header nav {
+			font-family: 'Helvetica Neue', sans-serif;
+			padding: .5rem;
+		}
+		header nav ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		header nav ul li {
+			font-weight: bold;
+			display: inline-block;
+			padding: .5rem 1rem;
+			margin-right: .5rem;
+			border: 1px solid dodgerblue;
+			border-radius: 1.5rem;
+			background-color: white;
+            transition: .3s all;
+		}
+		header nav ul li:last-child {
+			margin-right: 0;
+		}
+		header nav ul li a {
+			color: dodgerblue;
+            text-decoration: none;
+            transition: .3s all;
+		}
+
+		/*	Hover */
+        header nav ul li:hover {
+            background-color: dodgerblue;
+			transition: .3s all;
+			cursor: pointer;
+		}
+        header nav ul li:hover a {
+            color: #ffd500;
+            transition: .3s all;
+        }
+	</style>
+</head>
+<body>
+
+	<header>
+
+		<h1>
+			Menú Horizontal
+		</h1>
+
+		<nav>
+			<ul>
+				<li><a href="#opción_1">Opción 1</a></li>
+				<li><a href="#opción_2">Opción 2</a></li>
+				<li><a href="#opción_3">Opción 3</a></li>
+				<li><a href="#opción_4">Opción 4</a></li>
+			</ul>
+		</nav>
+
+	</header>
+
+</body>
+</html>
