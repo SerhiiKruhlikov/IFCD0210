@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>REM & EM</title>
+	<style>
+		body {
+			font-family: 'Avenir Next', sans-serif;
+			margin: 20px;
+			background-color: aliceblue;
+			font-size: 1.6rem;
+		}
+		h1 {
+            font-size: 2rem;
+			border-bottom: 3px solid blue;
+			color: blue;
+		}
+		h2 {
+            font-size: 1.8rem;
+			color: blueviolet;
+		}
+		.padre {
+            font-size: 2rem;
+            margin: 20px;
+			padding: 1rem;
+			border: 1px solid #bba89d;
+			background-color: #dccbc2;
+		}
+		.hijo {
+            font-size: 1.2rem;
+			padding: .8rem;
+            border: 1px solid #bba89d;
+		}
+		.nivel1 {
+			font-size: 2rem;
+            margin: 20px;
+            padding: 1rem;
+			border: 1px solid #3cea3c;
+			background-color: #e5ffe5;
+            margin-top: 1rem;
+		}
+		.nivel2 {
+            font-size: 0.8em;
+            padding: 1.5em;
+            border: 1px solid #3cea3c;
+            margin-top: 1em;
+		}
+		.nivel3 {
+            font-size: 1.2em;
+            padding: .5em;
+            background: lightgoldenrodyellow;
+            border: 1px solid #3cea3c;
+            margin-top: 1em;
+		}
+	</style>
+</head>
+<body>
+
+<h1>
+	Experimento con unidades de tipografía relativas
+</h1>
+
+<div class="padre">
+	<h2>
+		Unidad rem
+	</h2>
+	<p>
+		Contenedor padre
+	</p>
+	<div class="hijo">
+		Elemento hijo. <br>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur culpa
+		dolores est eveniet excepturi exercitationem inventore ipsum iure libero magni, nulla quae quasi ratione ut
+		voluptas voluptate voluptatem! Reprehenderit?
+	</div>
+</div>
+
+<div class="nivel1">
+	<h2>
+		Efecto cascada
+	</h2>
+	<p>
+		nivel 1. Contenedor padre font-size 2.0 rem
+	</p>
+	<div class="nivel2">
+		<p>
+			Nivel 2. Font-size 1.6rem
+		</p>
+		<div class="nivel3">
+			<p>
+				Nivel 3. Font-size 1.2em
+			</p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
