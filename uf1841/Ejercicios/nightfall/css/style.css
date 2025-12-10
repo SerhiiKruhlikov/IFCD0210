@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+html {
+    font-family: "Fira Mono", monospace;
+    font-style: normal;
+    font-weight: 400;
+    background-color: #252627;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    height: 100vh;
+}
+h1 {
+    font-size: 3rem;
+    margin: 2rem 0;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+}
+.wrapper {
+    width: 100%;
+    max-width: 50rem;
+    margin: 0 auto;
+}
+header,
+main,
+footer {
+    padding: 1.25rem 0;
+}
+header,
+footer {
+    width: 100%;
+    max-width: 50rem;
+    margin: 0 auto;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+}
+header a {
+    line-height: 1.25;
+    font-weight: 700;
+}
+header .logo {
+    padding-left: 1.5rem;
+}
+header nav {
+    padding-right: 1.5rem;
+}
+nav ul {
+    list-style: none;
+}
+nav ul li {
+    display: inline;
+}
+main {
+    width: 100%;
+    max-width: unset;
+    background-color: #292a2d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    margin: 0 auto;
+    text-align: center;
+}
+main section {
+    font-family: 'Open Sans', sans-serif;
+    width: 100%;
+    max-width: 50rem;
+    text-align: left;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+main section h1,
+main section h2 {
+    font-family: "Fira Mono", monospace;
+}
+main section h1 {
+    font-size: 2rem;
+}
+main section h2 {
+    font-size: 1.25rem;
+}
+main section p,
+main section ul {
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+main section ul {
+    padding-left: 1.5rem;
+}
+main section a {
+    color: #8bccff;
+}
+main section dl {
+    font-family: "Fira Mono", monospace;
+    font-weight: 700;
+}
+main section dl dt,
+main section dl dd {
+    line-height: 1.5;
+    padding: .25rem 0;
+}
+main section dl dt {
+    float: left;
+    margin-right: 1rem;
+}
+main nav {
+    margin: 1rem 0;
+}
+main nav ul li a {
+    font-family: 'Open Sans', sans-serif;
+    display: inline-block;
+    padding: 0 .5rem;
+}
+main nav ul li a:hover {
+    text-decoration: underline;
+}
+footer {
+    font-family: 'Open Sans', sans-serif;
+    padding: .9375rem 1.5rem;
+    line-height: 1.25;
+    text-align: center;
+}
+.plate {
+    background-color: #252627;
+    padding: 2rem 1rem;
+    margin-bottom: 1.5rem;
+}
+.minutes {
+    font-size: .875rem;
+}
+.posted {
+    float: right;
+}
+.mb-0 {
+    margin-bottom: 0;
+}

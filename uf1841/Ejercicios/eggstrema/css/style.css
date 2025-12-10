@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+html {
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #eee;
+    font-weight: 300;
+}
+h1,
+h2,
+p {
+    font-weight: 300;
+}
+h1 {
+    font-size: 4rem;
+}
+h2 {
+    font-size: 2rem;
+}
+a {
+    text-decoration: none;
+    color: #0f4fb4;
+}
+
+/* Header */
+header {
+    font-size: 1.25rem;
+    background-color: #03a9f4;
+    color: #fff;
+    padding: 1.25rem;
+}
+header a {
+    color: #fff;
+}
+
+/* Main */
+main {
+    padding: 2rem 1rem 0;
+}
+.wrapper {
+    width: 100%;
+    max-width: 46rem;
+    margin: 0 auto;
+}
+.column.media {
+    float: left;
+    margin-right: 1rem;
+}
+.clear {
+    clear: both;
+}
+
+.hero,
+.contacts .contact-item {
+    background-color: #81d4fa;
+    padding: 1.5rem;
+    box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.35);
+}
+.hero {
+    margin-bottom: 2rem;
+}
+
+.hero .thumbnail {
+    border-radius: 5rem;
+}
+.hero p {
+    font-size: 1.5rem;
+
+}
+
+.contacts .contact-item {
+    margin: 1.5rem;
+}
+.contacts .contact-item .icon {
+    border-radius: 2rem;
+    background-color: #619fbb;
+    width: 4rem;
+    height: 4rem;
+    padding: 1rem;
+    float: left;
+}
+.contacts .contact-item .title,
+.contacts .contact-item .link {
+    display: block;
+    font-weight: 200;
+}
+.contacts .contact-item .title {
+    font-size: 1.5rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+}
+footer p {
+    padding: .5rem 0;
+}
+footer nav ul li {
+    display: inline;
+}
+footer nav ul li a {
+    font-size: .6875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    display: inline-block;
+    background-color: white;
+    text-decoration: none;
+    padding: .125rem .5rem;
+}
