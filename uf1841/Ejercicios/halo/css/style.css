@@ -1,0 +1,131 @@
+* {
+    padding: 0;
+    margin: 0;
+    /*box-sizing: border-box;*/
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #2e4349;
+    background-color: #eee;
+}
+
+img {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+}
+
+h2 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    text-wrap: pretty;
+}
+
+h3 {
+    font-size: 1.5rem;
+    line-height: 1.1;
+    text-wrap: pretty;
+}
+
+p {
+}
+
+.subtitle {
+}
+
+.epigraph {
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.title {
+    margin-bottom: 2rem;
+}
+
+.button {
+    color: #fff;
+    background-color: oklch(51.1% .262 276.966);
+    padding: .75rem 2rem;
+    display: inline-block;
+    border-radius: 2rem;
+    transition: transform .4s;
+    box-shadow: 0 1rem 1rem 1rem rgba(0, 0, 0, .1);
+}
+
+.button:hover {
+    transform: translateY(-.35rem);
+    box-shadow: 0 1.5rem 2rem -.75rem oklch(0.51 0.26 276.97 / .6);
+    transition: transform .4s;
+}
+
+main {
+    width: 100%;
+    max-width: 57rem;
+    margin: 0 auto;
+    padding: 1rem;
+    height: calc(100vh - 2rem);
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(57, 1rem);
+    grid-template-rows: repeat(42, 1rem);
+}
+
+.col {
+    background-color: #fff;
+    display: grid;
+    box-shadow: 0 0 .5px #000;
+    overflow: clip;
+}
+
+.col-17 {
+    grid-column: span 17;
+}
+
+.col-19 {
+    grid-column: span 19;
+}
+
+.col-21 {
+    grid-column: span 21;
+}
+
+.col-36 {
+    grid-column: span 36;
+}
+
+.row-10 {
+    grid-row: span 10;
+}
+
+.row-12 {
+    grid-row: span 12;
+}
+
+.row-15 {
+    grid-row: span 15;
+}
+
+.row-16 {
+    grid-row: span 16;
+}
+
+.row-17 {
+    grid-row: span 17;
+}
+
+.row-26 {
+    grid-row: span 26;
+}
