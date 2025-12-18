@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Grid</title>
+	<style>
+        * {
+            /*margin: 0;*/
+            /*padding: 0;*/
+			box-sizing: border-box;
+		}
+		body {
+            font-family: 'SF Pro Display', sans-serif;
+			line-height: 1.5;
+			color: black;
+		}
+		.grid {
+			background-color: #eee;
+            display: grid;
+			grid-template-columns: repeat(3, 1fr);
+            grid-gap: 1rem;
+			padding: 1rem;
+		}
+		.col {
+			border: 1px solid red;
+			text-align: center;
+		}
+		.elemento-1 {
+			grid-column: span 2;
+			grid-row: span 2;
+		}
+		.elemento-8 {
+            grid-column: 3 / span 1;
+            grid-row: 3 / span 2;
+		}
+	</style>
+</head>
+<body>
+	<div class="grid">
+		<div class="col elemento-1">Elemento 1</div>
+		<div class="col">Elemento 2</div>
+		<div class="col">Elemento 3</div>
+		<div class="col">Elemento 4</div>
+		<div class="col">Elemento 5</div>
+		<div class="col">Elemento 6</div>
+		<div class="col">Elemento 7</div>
+		<div class="col elemento-8">Elemento 8</div>
+	</div>
+</body>
+</html>

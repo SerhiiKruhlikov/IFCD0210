@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Flex</title>
+	<style>
+        * {
+            margin: 0;
+            padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+            font-family: 'SF Pro Display', sans-serif;
+			line-height: 1.5;
+		}
+		.contenedor {
+			width: 100%;
+			max-width: 80rem;
+            margin: 0 auto;
+            padding: 2rem;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 1.5rem;
+			justify-content: center;
+		}
+		.tarjeta {
+			box-shadow: 0 0 10px rgba(0,0,0,.3);
+            border-radius: .5rem;
+            padding: .25rem;
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+            align-content: center;
+			gap: .5rem;
+		}
+		.imagen img {
+            border-radius: .25rem;
+			max-width: 12.5rem;
+		}
+		.título {
+            font-size: 1.25rem;
+            font-weight: 600;
+		}
+		.precio {
+            font-family: monospace, sans-serif;
+			color: red;
+		}
+		.botón {
+            line-height: 1.5rem;
+			border-radius: .25rem;
+            padding: .5rem 0;
+            border: none;
+			width: 100%;
+			background-color: #0062c7;
+			color: #fff;
+			cursor: pointer;
+            transition: all .3s;
+		}
+		.botón:hover {
+            background-color: #004186;
+		}
+	</style>
+</head>
+<body>
+	<div class="contenedor">
+		<div class="tarjeta">
+			<div class="imagen">
+				<img src="https://picsum.photos/200/200?1" alt="Imagen 1">
+			</div>
+			<div class="título">
+				Título uno
+			</div>
+			<div class="precio">
+				€ 199.00
+			</div>
+			<button class="botón">
+				Comprar
+			</button>
+		</div>
+		<div class="tarjeta">
+			<div class="imagen">
+				<img src="https://picsum.photos/200/200?2" alt="Imagen 1">
+			</div>
+			<div class="título">
+				Título dos
+			</div>
+			<div class="precio">
+				€ 199.00
+			</div>
+			<button class="botón">
+				Comprar
+			</button>
+		</div>
+		<div class="tarjeta">
+			<div class="imagen">
+				<img src="https://picsum.photos/200/200?3" alt="Imagen 1">
+			</div>
+			<div class="título">
+				Título tres
+			</div>
+			<div class="precio">
+				€ 199.00
+			</div>
+			<button class="botón">
+				Comprar
+			</button>
+		</div>
+		<div class="tarjeta">
+			<div class="imagen">
+				<img src="https://picsum.photos/200/200?4" alt="Imagen 1">
+			</div>
+			<div class="título">
+				Título cuatro
+			</div>
+			<div class="precio">
+				€ 199.00
+			</div>
+			<button class="botón">
+				Comprar
+			</button>
+		</div>
+	</div>
+</body>
+</html>

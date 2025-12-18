@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400;
+    background-color: #d6d6cd;
+    line-height: 1.5;
+}
+a {
+    color: #193b4d;
+    text-decoration: none;
+}
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+}
+.logo,
+nav {
+    padding: 0 2rem;
+}
+nav ul {
+    list-style: none;
+}
+nav ul li {
+    display: inline;
+}
+nav ul li a {
+    text-transform: uppercase;
+    padding: .5rem;
+}
+main,
+footer {
+    width: 100%;
+    max-width: 76rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+main {
+    padding: 5vw 2rem;
+}
+.hero {
+    font-size: 1.75em;
+    margin-bottom: 6vh;
+    max-width: 50ch;
+}
+.contenedor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 1;
+    /*width: calc((100% - 1.5rem * 2) / 3);*/
+    background-color: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all .3s;
+    max-width: 22.75rem;
+    min-width: 18.75rem;
+}
+.tarjeta:hover {
+    transform: scale(1.025);
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .25);
+}
+.tarjeta .imagen {
+    text-align: center;
+    padding: 1.5rem;
+}
+.tarjeta .imagen svg {
+    width: 100%;
+}
+.tarjeta .contenido {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #edede9;
+    gap: 1rem;
+    height: 100%;
+}
+.tarjeta .título {
+    font-size: 1.625rem;
+    font-weight: 700;
+}
+.tarjeta .descripción {
+    font-size: 1.1875rem;
+}
+
+footer {
+padding-top: 2rem;
+padding-bottom: 2rem;
+}
+
+.verde {
+    background-color: #507a53;
+}
+.rojo {
+    background-color: #e95444;
+}
+.azul {
+    background-color: #506485;
+}
