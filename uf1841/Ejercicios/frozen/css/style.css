@@ -2,7 +2,6 @@
     to {
         opacity: 1;
         transform: translateY(0);
-        transition: all 1s ease-in;
     }
 }
 
@@ -81,25 +80,29 @@ p {
 .button:hover { }
 
 .arrow-up {
+    position: fixed;
     right: 2.5vw;
     bottom: 2.5vw;
-    position: fixed;
+
     opacity: 0;
-    transform: translateY(100vh);
+    transform: translateY(25vh);
+
     animation: reveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     animation-timeline: view();
-    animation-range: entry 25% cover 45%;
+    animation-range: entry 0% cover 100%;
 }
 
 .arrow-up a {
     display: block;
     width: 3vw;
     height: 3vw;
+
+    opacity: .5;
+    transition: all .2s;
+
     background-color: #fff;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
     border-radius: 1.5vw;
-    opacity: 0.5;
-    transition: all .2s;
     cursor: pointer;
 }
 .arrow-up a:hover {
@@ -111,7 +114,7 @@ p {
 header {
     background-color: #252525f7;
     color: #fff;
-    padding: 1.5vw 2vw;
+    padding: 1vw 2vw;
     position: fixed;
     width: 100vw;
     z-index: 1;
@@ -128,14 +131,16 @@ header nav {
 header a {
     color: inherit;
     font-size: 2vw;
-    line-height: 1;
     display: inline-flex;
+    align-items: center;
+    gap: 1vw;
 }
 
 header svg {
+    width: 2vw;
     height: 2vw;
     fill: #fff;
-    margin: 0 1vw;
+    flex-shrink: 0;
 }
 
 main {
@@ -165,6 +170,10 @@ section.affordable svg {
 
 section.websites {
     background-color: #41d1eb;
+}
+
+section.software {
+    background-image: url('/images/bg1.webp');
 }
 
 section.development {
@@ -197,12 +206,15 @@ footer a {
     font-size: 3.5vw;
     line-height: 1;
     display: inline-flex;
+    align-items: center;
+    gap: 1vw;
 }
 
 footer svg {
+    width: 3.5vw;
     height: 3.5vw;
     fill: #fff;
-    margin: 0 1vw;
+    flex-shrink: 0;
 }
 
 
