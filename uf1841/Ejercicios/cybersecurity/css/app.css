@@ -1,0 +1,366 @@
+* {
+    --light-gray: rgb(238, 238, 238);
+    --dark-gray: rgb(230, 230, 230);
+    --white: rgb(255, 255, 255);
+    --color-electric-purple: rgb(130, 80, 223);
+
+    --small-radius: .5rem;
+    --default-radius: 1rem;
+    --medium-radius: 1.5rem;
+    --large-radius: 2rem;
+
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Mona Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+            "wdth" 100;
+}
+
+body {
+    line-height: 1.5;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+a {
+    color: rgb(5, 80, 174);
+    text-decoration: none;
+}
+
+h2 {
+    font-size: clamp(1rem, 1.5vw + 1rem, 2.5rem);
+    line-height: 1.2;
+    font-weight: 600;
+    color: rgb(36, 41, 47);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: balance;
+}
+
+h3 {
+    font-size: clamp(1rem, 1.2vw + 1rem, 1.5rem);
+    line-height: 1.2;
+    font-weight: 600;
+    color: rgb(36, 41, 47);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: balance;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: rgb(87, 96, 106);
+    text-wrap: pretty;
+}
+
+blockquote {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #d3bcb0;
+}
+
+main {
+    width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+}
+
+section {
+
+}
+
+footer {
+    background-color: #2e4349;
+}
+
+
+/* Callout */
+.callout {
+    background-color: var(--light-gray);
+    border-radius: var(--default-radius);
+    padding-inline: clamp(1rem, 3vw + 1rem, 2rem);
+    padding-block: clamp(1rem, 3vw + 1rem, 2rem);
+}
+
+/* Blockquote */
+.blockquote {
+    border: 1px solid var(--dark-gray);
+    border-radius: var(--default-radius);
+    /*padding-inline: clamp(2rem, 8.9vw, 8rem);*/
+    padding-inline: clamp(2rem, 10.909vw + -0.182rem, 8rem);
+    padding-block: clamp(2rem, 10.909vw + -0.182rem, 8rem);
+    align-items: flex-start;
+}
+.quote-open {
+    height: 2.5rem;
+    color: var(--color-electric-purple);
+    fill: var(--color-electric-purple);
+}
+.quote {
+    font-size: clamp(1.5rem, 1.818vw + 1.136rem, 2.5rem);
+    /*font-size: clamp(1.5rem, 2.5vw + 1rem, 2.5rem);*/
+    line-height: clamp(1, 1.125, 1.25);
+    font-weight: 600;
+}
+.caption {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+.caption .thumbnail {
+    display: flex;
+    max-width: 4rem;
+}
+.caption .title {
+    font-weight: 600;
+}
+.caption .position {
+    font-family: monospace, sans-serif;
+    font-size: .8125rem;
+    font-weight: 400;
+}
+
+
+/* FLEX */
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0;
+}
+
+.grid-cols-rows {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    container-type: inline-size;
+    order: 0;
+    grid-column: span 12;
+}
+
+.col-4 {
+    grid-column: span 4;
+}
+
+.col-6 {
+    grid-column: span 6;
+}
+
+.col-12 {
+    grid-column: span 12;
+}
+
+.gap-16 {
+    gap: 1rem;
+}
+
+.gap-32 {
+    gap: 2rem;
+}
+
+.gap-64 {
+    gap: clamp(.5rem, 3vw, 4rem);
+}
+
+.ph-32 {
+    padding-inline: clamp(.5rem, 2.5vw, 2rem);
+}
+
+.ph-64 {
+    padding-inline: clamp(1rem, 5vw, 4rem);
+}
+
+.pv-64 {
+    padding-block: clamp(1rem, 3vw + 1rem, 4rem);
+}
+
+.rad-2 {
+    border-radius: clamp(1rem, 1vw + 1rem, 1rem);
+}
+
+.align-center {
+    align-items: center;
+}
+
+.align-start {
+    align-items: flex-start
+}
+
+
+/* MEDIA */
+@media (max-width: 767px) {
+    .sm-row-1 {
+        grid-row: span 1;
+    }
+    .sm-row-2 {
+        grid-row: span 2;
+    }
+
+    .sm-col-1 {
+        grid-column: span 1;
+    }
+    .sm-col-2 {
+        grid-column: span 2;
+    }
+    .sm-col-3 {
+        grid-column: span 3;
+    }
+    .sm-col-4 {
+        grid-column: span 4;
+    }
+    .sm-col-5 {
+        grid-column: span 5;
+    }
+    .sm-col-6 {
+        grid-column: span 6;
+    }
+    .sm-col-7 {
+        grid-column: span 7;
+    }
+    .sm-col-8 {
+        grid-column: span 8;
+    }
+    .sm-col-9 {
+        grid-column: span 9;
+    }
+    .sm-col-10 {
+        grid-column: span 10;
+    }
+    .sm-col-11 {
+        grid-column: span 11;
+    }
+    .sm-col-12 {
+        grid-column: span 12;
+    }
+
+    /* Order */
+    .sm-ord-1 {
+        order: 1;
+    }
+    .sm-ord-2 {
+        order: 2;
+    }
+    .sm-ord-3 {
+        order: 3;
+    }
+    .sm-ord-4 {
+        order: 4;
+    }
+    .sm-ord-5 {
+        order: 5;
+    }
+    .sm-ord-6 {
+        order: 6;
+    }
+
+    .sm-gap-1 {
+        gap: clamp(1rem, 1vw + 1rem, 1.5rem);
+    }
+    .sm-gap-2 {
+        gap: clamp(2rem, 2vw + 1rem, 2.5rem);
+    }
+}
+@media (min-width: 768px) {
+    .lg-row-1 {
+        grid-row: span 1;
+    }
+    .lg-row-2 {
+        grid-row: span 2;
+    }
+
+    .lg-col-1 {
+        grid-column: span 1;
+    }
+    .lg-col-2 {
+        grid-column: span 2;
+    }
+    .lg-col-3 {
+        grid-column: span 3;
+    }
+    .lg-col-4 {
+        grid-column: span 4;
+    }
+    .lg-col-5 {
+        grid-column: span 5;
+    }
+    .lg-col-6 {
+        grid-column: span 6;
+    }
+    .lg-col-7 {
+        grid-column: span 7;
+    }
+    .lg-col-8 {
+        grid-column: span 8;
+    }
+    .lg-col-9 {
+        grid-column: span 9;
+    }
+    .lg-col-10 {
+        grid-column: span 10;
+    }
+    .lg-col-11 {
+        grid-column: span 11;
+    }
+    .lg-col-12 {
+        grid-column: span 12;
+    }
+
+    /* Order */
+    .lg-ord-1 {
+        order: 1;
+    }
+    .lg-ord-2 {
+        order: 2;
+    }
+    .lg-ord-3 {
+        order: 3;
+    }
+    .lg-ord-4 {
+        order: 4;
+    }
+    .lg-ord-5 {
+        order: 5;
+    }
+    .lg-ord-6 {
+        order: 6;
+    }
+
+    .lg-gap-1 {
+        gap: clamp(1rem, 1.5vw + 1rem, 2rem);
+    }
+    .lg-gap-2 {
+        gap: clamp(2rem, 2.5vw + 1rem, 3rem);
+    }
+
+}
