@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>003 Bucles while() / JavaScript</title>
+
+</head>
+<body>
+
+	<h1>variable dentro y fuera de la función</h1>
+
+	<script>
+		let vueltas = 0;
+
+		while (vueltas < 20) {
+            console.log("Vuelta " + vueltas);
+			vueltas++;
+		}
+	</script>
+
+	<script>
+		let contador = 0;
+        console.log("Antes del bucle");
+        while (true) {
+            console.log("Contador: " + contador);
+            contador++;
+            if (contador === 7) {
+                break;
+            }
+        }
+        console.log("Después del bucle");
+	</script>
+
+	<script !src="">
+		contador = 10;
+        console.log("Antes del bucle");
+        while (true) {
+            console.log("Contador: " + contador);
+            if (contador === 0) {
+                break;
+            }
+            contador--;
+        }
+        console.log("Después del bucle");
+	</script>
+
+	<script !src="">
+		contador = 0;
+        console.log("Antes del bucle");
+        while (contador <= 20) {
+            if (contador%2 === 0) {
+            	console.log("Número: " + contador);
+            }
+            contador++;
+        }
+        console.log("Después del bucle");
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>002 Ejercicios / JavaScript</title>
+	<script>
+		// var mensaje = "Primer mensaje";
+		//
+        // function crearMensaje() {
+        //     var mensaje = "Segundo mensaje";
+        //     alert(mensaje);
+		// }
+
+        // crearMensaje();
+        // alert("Fuera de la función: " + mensaje);
+	</script>
+</head>
+<body>
+
+	<h1>variable dentro y fuera de la función</h1>
+
+	<script>
+		let cantidad = 0;
+        let vacio = !cantidad;
+
+        console.log("Candidad: " + cantidad);
+        console.log("Vacio: " + vacio);
+
+        let mensaje = "Hola Mundo";
+        let sinMensaje = !mensaje;
+        let conMensaje = !sinMensaje;
+
+        console.log("Sin mensaje: " + sinMensaje);
+        console.log("Con mensaje: " + conMensaje);
+	</script>
+
+	<button onclick="creaTitulo();">Titulo</button>
+
+	<script>
+		function creaTitulo(){
+            document.write("Esto es un título");
+		}
+	</script>
+
+	<script>
+		function strNota(nota) {
+            let result;
+
+            if (nota < 5) {
+                result = 'Suspenso';
+			} else if (nota < 6) {
+                result = 'Aprobado';
+			} else if (nota < 7) {
+                result = 'Bien';
+			} else if (nota < 9) {
+                result = 'Notable';
+            } else {
+                result = 'Sobresaliente';
+			}
+
+            return result;
+		}
+
+        console.log(strNota(7))
+	</script>
+
+	<script>
+        function strNota(nota) {
+            let result;
+
+            switch (nota) {
+				case 1:
+                    result = "Lunes";
+                    break;
+				case 2:
+                    result = "Martes";
+                    break;
+				default:
+                    result = "Día de fiesta";
+            }
+            return result;
+        }
+
+        console.log(strNota(2))
+	</script>
+
+</body>
+</html>

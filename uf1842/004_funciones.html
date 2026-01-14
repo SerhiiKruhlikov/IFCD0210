@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>004 Funciónes / JavaScript</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		function suma(a, b){
+            return a + b;
+		}
+
+        console.log("Suma es: ", suma(6, 8));
+	</script>
+
+	<script type="text/javascript">
+		function mayor(p, s) {
+            return (p === s) ? "Son iguales.": ((p > s) ? "Primero es mayor." : "Segundo es mayor."); // notación ternario.
+		}
+
+        console.log(mayor(23,23));
+	</script>
+
+	<script type="text/javascript">
+		function menor(p, s) {
+            if (p > s)
+                return p + " es mayor que " + s;
+            if (p === s)
+                return "son iguales";
+            return s + " es mayor que" + p;
+		}
+
+        console.log(menor(5,2));
+	</script>
+
+	<script>
+        function largo(t) {
+            let l = '', i = 0;
+            while (l !== '$') {
+                l = t[i];
+                console.log(l);
+                i++;
+            }
+
+            return (i - 1);
+        }
+
+        console.log(largo("text$"));
+	</script>
+
+</body>
+</html>
