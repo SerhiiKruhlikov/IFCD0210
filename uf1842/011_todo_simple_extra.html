@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>011 Create Element / JavaScript</title>
+	<style>
+
+		html {
+			font-family: 'Helvetica', sans-serif;
+		}
+		.tareas {
+			display: flex;
+			flex-direction: column;
+			gap: .5rem;
+			list-style: none;
+			padding-left: 0;
+		}
+		.tareas li {
+			border: 1px solid #eee;
+			padding: .25rem;
+			display: flex;
+			flex-direction: row;
+			gap: 1rem;
+			position: relative;
+		}
+		.tareas li span {
+			flex-grow: 1;
+		}
+        .tareas li.realizado span {
+			color: #8a8a8a;
+		}
+		.tareas li.realizado::after {
+			content: "";
+			position: absolute;
+			width: calc(100% + 20px);
+			background-color: #3cea3c;
+			height: 2px;
+			left: -10px;
+			right: -10px;
+			top: 50%;
+		}
+        .tareas li input[name='text']{
+			flex-grow: 1;
+		}
+        .tareas li.read input[name='text']{
+			border: 1px solid #eee;
+		}
+        .tareas li.read input[name='text'],
+		.tareas li.read input[name='text']:focus-visible{
+			outline: none;
+
+		}
+
+	</style>
+	<script type="text/javascript">
+        function handleEnterKey(event) {
+			if (event.key === "Enter" && event.target.value.trim().length > 0 && !event.target.readOnly) {
+                event.preventDefault();
+                event.target.readOnly = true;
+                event.target.parentNode.className = "read";
+
+                event.target.removeEventListener("keydown", handleEnterKey);
+
+                activatedCompleted(event.target.previousElementSibling);
+                activatedRemove(event.target.nextElementSibling);
+
+                if (event.target._editabledHandler) {
+                    event.target.removeEventListener("dblclick", event.target._editabledHandler);
+                    event.target._editabledHandler = null;
+                }
+
+                event.target._editabledHandler = function() {
+                    if (!this.parentNode.classList.contains("completed"))
+                    	isEditable(event.target);
+                }
+
+                event.target.addEventListener("dblclick", event.target._editabledHandler);
+
+				addElement("tareas");
+			}
+		}
+
+        function isEditable(element) {
+            element.readOnly = false;
+            element.parentNode.classList.add("editable");
+            element.parentNode.classList.remove("read");
+
+            // Удаляем старый обработчик, если есть
+            if (element._changeHandlers) {
+                element.removeEventListener("blur", element._changeHandlers.blur);
+                element.removeEventListener("keydown", element._changeHandlers.keydown);
+                element._changeHandlers = null;
+            }
+
+            // Создаём объект с обработчиками
+            element._changeHandlers = {
+                blur: function() {
+                    // Проверяем, что поле ещё редактируемое
+                    if (!this.readOnly) {
+                        isChanged(element);
+                    }
+                },
+                keydown: function(event) {
+                    if (event.key === 'Enter' && !this.readOnly) {
+                        event.preventDefault();
+                        if (!this.readOnly) {
+                            isChanged(element);
+                            this.blur();
+                        }
+                    }
+                }
+            };
+
+            // Добавляем оба обработчика
+            element.addEventListener("blur", element._changeHandlers.blur);
+            element.addEventListener("keydown", element._changeHandlers.keydown);
+        }
+
+        function isChanged(element) {
+            console.log("isChanged");
+            element.readOnly = true; // Сначала устанавливаем readOnly
+            element.parentNode.classList.add("read");
+            element.parentNode.classList.remove("editable");
+        }
+
+        function activatedCompleted(element) {
+            if (element?.tagName !== "INPUT") return;
+            element.disabled = false;
+            element.addEventListener("change", function(){
+                onCompleted(element);
+			});
+		}
+
+        function activatedRemove(element) {
+            if (element?.tagName !== "BUTTON") return;
+            element.disabled = false;
+
+            if (element._removeHandler) {
+                element.removeEventListener("click", element._removeHandler);
+                element._removeHandler = null;
+            }
+
+            element._removeHandler = function(){
+                removeElement(element.parentNode);
+            }
+
+            element.addEventListener("click", element._removeHandler);
+		}
+
+        function changeRemove(element) {
+            if (element?.tagName !== "BUTTON") return;
+            element.disabled = !element.disabled;
+		}
+
+        function removeElement(element) {
+            element.remove();
+		}
+
+        function onCompleted(element) {
+            if (element?.tagName !== "INPUT") return;
+            element.checked
+				? element.parentNode.classList.add("completed")
+				: element.parentNode.classList.remove("completed");
+            changeRemove(element.nextElementSibling.nextElementSibling);
+		}
+
+        function editElement(textElement) {
+            if (!textElement) {
+                console.error("Element not provided.");
+                return;
+            }
+
+            textElement.removeEventListener("keydown", handleEnterKey);
+            textElement.addEventListener("keydown", handleEnterKey);
+
+            textElement.focus();
+		}
+
+        function addElement(parent) {
+            let li = Object.assign(
+                document.createElement("li"), {
+                    className: "editable"
+					}),
+				checkbox = Object.assign(
+                    document.createElement("input"),
+					{
+                        type: "checkbox",
+						name: "checkbox",
+                        disabled: true
+                    }),
+				text = Object.assign(
+                    document.createElement("input"),
+					{
+                        type: "text",
+						name: "text",
+						className: "text",
+						placeholder: "Nueva tarea..."
+                    }),
+                remove = Object.assign(
+                    document.createElement("button"),
+					{
+						innerText: "Remove",
+						disabled: true
+                    });
+
+			li.append(...[checkbox, text, remove]);
+            document.getElementById(parent).prepend(li);
+
+            text.addEventListener("keydown", handleEnterKey);
+
+            text.focus();
+		}
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const firstInput = document.querySelector(".editable > .text");
+
+            if (firstInput) {
+                firstInput.addEventListener("keydown", handleEnterKey);
+
+                firstInput.addEventListener("click", function() {
+                    this.focus();
+                });
+
+                firstInput.focus();
+            }
+        })
+	</script>
+
+</head>
+<body>
+	<h1>Lista de tareas</h1>
+
+	<ul id="tareas" class="tareas">
+		<li class="editable">
+			<input type="checkbox" name="checkbox" id="checkbox" disabled />
+			<input type="text" name="text" class="text" />
+			<button disabled>Remove</button>
+		</li>
+	</ul>
+</body>
+</html>

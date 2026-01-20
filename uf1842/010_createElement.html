@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>010 Create Element / JavaScript</title>
+	<script type="text/javascript">
+        function agregar(){
+            // let ul = document.getElementById("lista");
+            let ul = document.querySelector("#lista");
+            let li = document.createElement("li");
+            li.textContent = "Element nuevo";
+            ul.appendChild(li);
+        }
+
+        function eliminar(){
+            let ul = document.getElementById("lista");
+            if (ul.lastChild)
+            	ul.lastChild.remove();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+			// Наблюдатель за изменениями в DOM
+			const observer = new MutationObserver(function() {
+				document.getElementsByName('eliminar')[0].disabled =
+					!document.querySelectorAll("#lista > li").length;
+			});
+
+			// Начинаем наблюдение
+			observer.observe(document.getElementById('lista'), {
+				childList: true,  // отслеживаем добавление/удаление детей
+				subtree: true     // отслеживаем все вложенные элементы
+			});
+        });
+	</script>
+<!--	<script type="text/javascript">-->
+<!--        function addElement(){-->
+<!--            let li = '<li>Elemento nuevo</li>';-->
+<!--            let ul = document.querySelectorAll("#padre")[0];-->
+
+<!--            ul.innerHTML += li;-->
+
+<!--            observer();-->
+<!--        }-->
+
+<!--        function removeElement(){-->
+<!--            let conjunto = document.querySelectorAll("#padre > li");-->
+<!--            if (conjunto.length)-->
+<!--				conjunto[conjunto.length - 1].remove();-->
+<!--            observer();-->
+<!--		}-->
+
+<!--        function observer(){-->
+<!--            document.getElementsByName('removeElement')[0].disabled = !document.querySelectorAll("#padre > li").length;-->
+<!--		}-->
+<!--	</script>-->
+</head>
+<body>
+	<h1>Create element y Append child</h1>
+	<button name="agregar" onclick="agregar(event);">Añade un elemento</button>
+	<button name="eliminar" onclick="eliminar(event);" disabled>Eliminar un elemento</button>
+	<ul id="lista"></ul>
+</body>
+</html>

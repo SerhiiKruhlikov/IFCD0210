@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>010 EventListener / JavaScript</title>
+</head>
+<body>
+
+<form action="#" method="post">
+	<input type="text" name="texto" id="texto">
+</form>
+
+<ul>
+	<li class="readable">readable</li>
+	<li class="editabled">editabled</li>
+	<li class="completed">completed</li>
+</ul>
+
+<script type="text/javascript">
+    document.getElementById('texto').addEventListener("keyup", function (event) {
+        console.log(event.type);
+        console.log(event.target.id);
+        console.log(event.currentTarget.parentNode.hasChildNodes());
+        console.log(event.timeStamp);
+        console.log(event.isTrusted);
+        console.log(event.key);
+        console.log(event.code);
+    });
+
+    let readable = document.querySelector(".readable");
+    let editabled = document.querySelector(".editabled");
+    let completed = document.querySelector(".completed");
+
+    readable.addEventListener("click", handler);
+
+    function handler
+
+
+</script>
+</body>
+</html>

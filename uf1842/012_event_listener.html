@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>010 EventListener / JavaScript</title>
+	<script type="text/javascript">
+		window.addEventListener("load", function(){
+			let verde = document.getElementById('verde');
+			let azul = document.getElementById('azul');
+
+			verde.addEventListener("click", ponerVerde);
+			azul.addEventListener("click", ponerAzul);
+			azul.addEventListener("click", chorra);
+
+            azul.removeEventListener("click", chorra);
+
+			function ponerAzul(){
+				document.body.style.backgroundColor = "blue";
+			}
+
+			function ponerVerde(){
+				document.body.style.backgroundColor = "green";
+			}
+
+            function chorra(){
+                console.log('chorra');
+            }
+		});
+	</script>
+</head>
+<body>
+	<h1>Event Listener</h1>
+
+	<button id="verde">Verde</button>
+	<button id="azul">Azul</button>
+
+	<ul id="tareas" class="tareas"></ul>
+</body>
+</html>

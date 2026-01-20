@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>015 Reloj / JavaScript</title>
+	<link href="https://db.onlinewebfonts.com/c/2276cdc52a269f331cb80f2a3331bfa3?family=Crystal+Italic" rel="stylesheet" type="text/css"/>
+	<style>
+        @import url("https://db.onlinewebfonts.com/c/61b4eaee5625d47bb7215f205e44f580?family=F7-Segment");
+        @font-face {
+            font-family: "F7-Segment";
+            src: url("https://db.onlinewebfonts.com/t/61b4eaee5625d47bb7215f205e44f580.eot");
+            src: url("https://db.onlinewebfonts.com/t/61b4eaee5625d47bb7215f205e44f580.eot?#iefix")format("embedded-opentype"),
+            url("https://db.onlinewebfonts.com/t/61b4eaee5625d47bb7215f205e44f580.woff2")format("woff2"),
+            url("https://db.onlinewebfonts.com/t/61b4eaee5625d47bb7215f205e44f580.woff")format("woff"),
+            url("https://db.onlinewebfonts.com/t/61b4eaee5625d47bb7215f205e44f580.ttf")format("truetype"),
+            url("https://db.onlinewebfonts.com/t/61b4eaee5625d47bb7215f205e44f580.svg#F7-Segment")format("svg");
+        }
+		* {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		html {
+            font-family: "F7-Segment", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            color: #2e4349;
+            background-color: #eee;
+		}
+		main {
+			text-align: center;
+			width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+		}
+		.reloj {
+            position: relative;
+			font-size: 15vw;
+			display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            /*width: 100%;*/
+            /*max-width: 50rem;*/
+            margin: 0 auto;
+			border: 1px solid #83a5ab;
+			padding: .5rem;
+			border-radius: 1rem;
+			background-color: #9abac0;
+			color: #285a64;
+			gap: .5rem;
+		}
+		.reloj:after {
+			content: "";
+            background: linear-gradient(-70deg,rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 0%);
+			inset: 0;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}
+		.reloj .tiempo {
+			position: relative;
+			grid-column: 1 / span 12;
+            border: 1px solid #7ea1a8;
+            border-radius: .5rem;
+            padding: .75rem;
+            background-color: #abc7cc;
+		}
+		.reloj .tiempo:before {
+            position: absolute;
+			content: "88:88:88";
+			opacity: .05;
+		}
+		.reloj .calendario {
+            position: relative;
+            font-size: 5vw;
+			grid-column: 1 / span 4;
+            border: 1px solid #7ea1a8;
+            border-radius: .5rem;
+            padding: .75rem;
+            background-color: #abc7cc;
+		}
+        .reloj .calendario:before {
+            position: absolute;
+            content: "88/88";
+            opacity: .05;
+		}
+		.reloj .dia {
+			position: relative;
+            font-size: 5vw;
+            grid-column: 5 / span 3;
+            border: 1px solid #7ea1a8;
+            border-radius: .5rem;
+            padding: .75rem;
+            background-color: #abc7cc;
+		}
+        .reloj .dia:before {
+            position: absolute;
+            content: "888";
+            opacity: .05;
+		}
+	</style>
+</head>
+<body>
+	<main></main>
+	<script src="js/reloj.js"></script>
+</body>
+</html>

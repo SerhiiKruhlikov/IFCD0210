@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>010 Create Element / JavaScript</title>
+	<style>
+
+		html {
+			font-family: 'Helvetica', sans-serif;
+		}
+		.tareas {
+			display: flex;
+			flex-direction: column;
+			gap: .5rem;
+			list-style: none;
+			padding-left: 0;
+		}
+		.tareas li {
+			border: 1px solid #eee;
+			padding: .25rem;
+			display: flex;
+			flex-direction: row;
+			gap: 1rem;
+			position: relative;
+		}
+		.tareas li span {
+			flex-grow: 1;
+		}
+        .tareas li.realizado span {
+			color: #8a8a8a;
+		}
+		.tareas li.realizado::after {
+			content: "";
+			position: absolute;
+			width: calc(100% + 20px);
+			background-color: #3cea3c;
+			height: 2px;
+			left: -10px;
+			right: -10px;
+			top: 50%;
+		}
+
+	</style>
+	<script type="text/javascript">
+        function agregarTarea(){
+            let cajaTexto = document.getElementById('tarea');
+            let texto = cajaTexto.value;
+            if (texto === '')
+                return;
+
+			let li = document.createElement('li');
+
+            let check = document.createElement('input');
+            check.type = 'checkbox';
+            check.onclick = function(){
+				realizado(this);
+            }
+
+            let span = document.createElement('span');
+            span.innerText = texto;
+
+            let boton = document.createElement('button');
+            boton.innerText = "Eliminar";
+            boton.onclick = function(){
+				eliminar(this);
+            }
+
+			li.appendChild(check);
+            li.appendChild(span);
+            li.appendChild(boton);
+
+
+			let tareas = document.getElementById('tareas');
+			tareas.appendChild(li);
+            cajaTexto.value = '';
+        }
+
+        function eliminar(element){
+            let li = element.parentNode;
+			li.parentNode.removeChild(li);
+        }
+
+        function realizado(element){
+            let li = element.parentNode;
+            if (element.checked)
+            	li.className = 'realizado';
+            else
+                li.className = '';
+		}
+	</script>
+
+</head>
+<body>
+	<h1>Lista de tareas</h1>
+
+	<input type="text" id="tarea" placeholder="Nombre de la tarea" />
+	<button onclick="agregarTarea();">Agregar tarea</button>
+
+	<ul id="tareas" class="tareas"></ul>
+</body>
+</html>

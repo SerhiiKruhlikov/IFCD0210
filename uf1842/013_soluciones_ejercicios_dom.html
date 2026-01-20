@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>010 EventListener / JavaScript</title>
+	<script type="text/javascript">
+
+	</script>
+</head>
+<body>
+	<h1>Soluciones Ejercicios DOM</h1>
+	<h2>Ejercicio 1</h2>
+	<button onclick="cambiaColor(this);">Haz click aquí</button>
+	<script type="text/javascript">
+        function cambiaColor(e) {
+            let col1 = "red";
+            let col2 = "blue";
+
+            if (e.style.backgroundColor === col1)
+	            e.style.backgroundColor = col2;
+            else
+                e.style.backgroundColor = col1;
+		}
+	</script>
+
+	<hr>
+
+	<h2>Ejercicio 2</h2>
+	<p>Encima: <span id="status"></span></p>
+	<p onmouseleave="leave(this, 'status');" onmouseover="over(this, 'status');">Lorem ipsum dolor sit amet</p>
+	<script type="text/javascript">
+		function over(e, r){
+            document.getElementById(r).innerText = "Sí";
+		}
+        function leave(e, r){
+            document.getElementById(r).innerText = "No";
+		}
+	</script>
+
+	<hr>
+
+	<h2>Ejercicio 3</h2>
+	<p>Contador: <span id="ej3"Z>0</span></p>
+	<textarea onkeyup="contador(this, 'ej3');" name="text" placeholder="xxx"></textarea>
+	<script type="text/javascript">
+		let count = 0;
+		function contador(e, r) {
+            document.getElementById(r).innerText = ++count;
+		}
+	</script>
+
+	<hr>
+
+	<h2>Ejercicio 4</h2>
+	<p id="resultado">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+	<input type="text" name="text" id="ej4">
+	<script type="text/javascript">
+		document.getElementById('ej4').addEventListener("keyup", function (event) {
+            if (event.key === "Enter" && event.target.value.trim().length > 0) {
+                event.preventDefault();
+                document.getElementById("resultado").innerText = event.target.value.trim();
+            }
+		})
+	</script>
+
+	<hr>
+
+	<h2>Ejercicio 5</h2>
+	<button onclick="oneClick(this);" ondblclick="doubleClick(this);">Haz click aquí</button>
+	<script type="text/javascript">
+		function doubleClick(e){
+            e.innerText = "Double click!";
+		}
+        function oneClick(e){
+            e.innerText = "Haz click aquí";
+		}
+	</script>
+
+	<h2>Ejercicio 6</h2>
+	<input type="text" name="text" id="ej6_text" onkeyup="interruptor(this, 'ej6_button')" />
+	<button id="ej6_button" disabled>Button</button>
+	<script type="text/javascript">
+		function interruptor(e, r){
+            if (e.value.length <= 0) {
+                document.getElementById(r).disabled = true;
+            } else {
+                document.getElementById(r).disabled = false;
+            }
+        }
+	</script>
+
+	<hr>
+
+	<h2>Ejercicio 7</h2>
+	<button onclick="cambioFondo('yellow');">Amarillo</button>
+	<button onclick="cambioFondo('orange');">Naranja</button>
+	<button onclick="cambioFondo('green');">Verde</button>
+	<script type="text/javascript">
+		function cambioFondo(color) {
+            document.body.style.backgroundColor = color;
+        }
+	</script>
+
+	<hr>
+
+	<h2>Ejercicio 8</h2>
+	<p id="ej8_resultado">--- Párrafo vacío ---</p>
+	<input type="text" name="text" id="ej8" onkeyup="observador(this, 'ej8_resultado');">
+	<script type="text/javascript">
+        function observador(e, r) {
+            if (e.value.trim().length > 0)
+            	document.getElementById(r).innerText = e.value.trim();
+        }
+	</script>
+
+	<hr>
+
+	<h2>Ejercicio 9</h2>
+	<input type="text" name="text" id="ej9" onfocus="focusIn(this);" onfocusout="focusOut(this);">
+	<script type="text/javascript">
+		function focusIn(e){
+            e.style.outlineColor = "green";
+		}
+        function focusOut(e){
+            e.style.outlineColor = "";
+		}
+	</script>
+</body>
+</html>

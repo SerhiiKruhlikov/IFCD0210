@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>008 Ejercicios / JavaScript</title>
+	<script type="text/javascript">
+        function addElement(){
+            let li = '<li>Elemento nuevo</li>';
+            let ul = document.querySelectorAll("#padre")[0];
+            ul.innerHTML += li;
+        }
+
+        function removeElement(){
+            let conjunto = document.querySelectorAll("#padre > li");
+            if (conjunto.length)
+                conjunto[conjunto.length - 1].remove();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+			// Наблюдатель за изменениями в DOM
+			const observer = new MutationObserver(function() {
+				document.getElementsByName('removeElement')[0].disabled =
+					!document.querySelectorAll("#padre > li").length;
+			});
+
+			// Начинаем наблюдение
+			observer.observe(document.getElementById('padre'), {
+				childList: true,  // отслеживаем добавление/удаление детей
+				subtree: true     // отслеживаем все вложенные элементы
+			});
+        });
+	</script>
+<!--	<script type="text/javascript">-->
+<!--        function addElement(){-->
+<!--            let li = '<li>Elemento nuevo</li>';-->
+<!--            let ul = document.querySelectorAll("#padre")[0];-->
+
+<!--            ul.innerHTML += li;-->
+
+<!--            observer();-->
+<!--        }-->
+
+<!--        function removeElement(){-->
+<!--            let conjunto = document.querySelectorAll("#padre > li");-->
+<!--            if (conjunto.length)-->
+<!--				conjunto[conjunto.length - 1].remove();-->
+<!--            observer();-->
+<!--		}-->
+
+<!--        function observer(){-->
+<!--            document.getElementsByName('removeElement')[0].disabled = !document.querySelectorAll("#padre > li").length;-->
+<!--		}-->
+<!--	</script>-->
+</head>
+<body>
+	<div>Primer div</div>
+
+<!--	<script type="text/javascript">-->
+<!--		let divs = document.getElementsByTagName('div');-->
+<!--        alert(divs.length);-->
+<!--	</script>-->
+
+	<div>Segundo div</div>
+
+<!--	<script type="text/javascript">-->
+<!--        alert(divs.length);-->
+<!--	</script>-->
+
+	<button name="addElement" onclick="addElement(event);">Añade un elemento</button>
+	<button name="removeElement" onclick="removeElement(event);" disabled>Añade un elemento</button>
+	<ul id="padre"></ul>
+
+
+</body>
+</html>
