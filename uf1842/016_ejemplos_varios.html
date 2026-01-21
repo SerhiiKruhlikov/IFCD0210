@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>016 Ejemplos varios</title>
+	<style>
+		root {
+            --status-scroll-width: 0px;
+            --status-scroll-height: 15px;
+		}
+		* {
+			box-sizing: border-box;
+		}
+		html {
+			font-family: 'Helvetica Neue', sans-serif;
+            scroll-behavior: smooth;
+		}
+		header {
+			width: 100%;
+			background-color: #eee;
+			padding: 1rem;
+		}
+		.status-scroll {
+            position: fixed;
+			height: 5px;
+            background-color: lightgray;
+			width: 100%;
+			left: 0;
+			top: 0;
+			z-index: 1;
+		}
+		.status-scroll::after {
+			inset: 0;
+            content: '';
+            position: absolute;
+            width: var(--status-scroll-width, 0);
+            height: var(--status-scroll-height, 5px);
+            background: #8663ff;
+        }
+		.flecha {
+			display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+			bottom: 3rem;
+			right: 0;
+			opacity: 0;
+			transition: .3s opacity;
+			width: 2rem;
+			height: 2rem;
+			background-color: lightgray;
+			border-top-left-radius: .25rem;
+			border-bottom-left-radius: .25rem;
+			cursor: pointer;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="status_scroll" class="status-scroll"></div>
+
+	<h2>Barra de progreso con scroll</h2>
+
+	<div style="height: 2000px;">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut, delectus dolorem dolores est facere labore libero maiores nesciunt non praesentium quas quos ratione sint unde vel vitae? Animi, similique!</p>
+
+		<textarea id="text" name="text" placeholder="input texto" maxlength="40"></textarea>
+		<p>Utilizados <span id="cantidad">0</span> de 40 caracteres.</p>
+		<button	id="back">Back</button>
+		<hr>
+		<div class="contentdor">
+			<div class="tabs">
+				<div class="tab active" data-target="tab1">Tab 1</div>
+				<div class="tab" data-target="tab2">Tab 2</div>
+				<div class="tab" data-target="tab3">Tab 3</div>
+			</div>
+			<div id="tab1" class="tab-content active">Content de la pestaña 1</div>
+			<div id="tab2" class="tab-content">Content de la pestaña 2</div>
+			<div id="tab3" class="tab-content">Content de la pestaña 3</div>
+		</div>
+	</div>
+
+
+	<div id="flecha" class="flecha">^</div>
+
+	<script type="text/javascript">
+		window.addEventListener("scroll", (event) => {
+            let scrolled = window.scrollY;
+            let altura = document.body.scrollHeight - window.innerHeight;
+            // let width = document.getElementById("status_scroll").style.width = (scrolled / altura) * 100 + "%";
+            let width = (scrolled / altura) * 100 + "%";
+            document.getElementById("status_scroll").style.setProperty('--status-scroll-width', width);
+
+            let flecha = document.getElementById("flecha");
+
+            console.log(width);
+
+            if ((scrolled / altura) * 100 > 30)
+                flecha.style.opacity = 1;
+            else
+                flecha.style.opacity = 0;
+        });
+
+        document.getElementById("flecha").addEventListener("click", () => {
+            window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                }
+			);
+		});
+
+        let historial = [];
+
+        document.getElementById("text").addEventListener("input", (element) => {
+            document.getElementById("cantidad").innerText = element.target.value.length;
+            historial.push(element.target.value);
+            console.log(historial);
+		});
+
+        document.getElementById("back").addEventListener("click", (element) => {
+            document.getElementById("text").value = historial.pop() || "";
+        });
+
+
+
+        let tab = document.querySelectorAll(".tab");
+        let contenidos = document.querySelectorAll(".tab-content");
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>
