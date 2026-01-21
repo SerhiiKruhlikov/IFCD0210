@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #2e4349;
+    background-color: #eee;
+}
+h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+main {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.juega {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    margin: 0 auto;
+    padding: 2rem;
+    color: #285a64;
+    max-width: 60rem;
+    text-align: center;
+    gap: 2rem;
+}
+.juega-header,
+.juega-main,
+.juega-footer {
+    font-size: 1.5rem;
+    grid-column: 1 / span 12;
+}
+input[type="number"] {
+    grid-column: 2 / span 11;
+    text-align: center;
+    font-size: 2rem;
+    padding: 1rem;
+}
+.felicidades {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1da21d;
+}
+.reinicio {
+    color: white;
+    background-color: #0040c9;
+    grid-column: 3 / span 8;
+    font-size: 2rem;
+    line-height: 1.4;
+    padding: .5rem;
+    border-radius: .5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: none;
+    transition: .3s all;
+}
+.reinicio:hover {
+    background-color: #0040c9;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+}
+
+
