@@ -20,12 +20,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ul, p {
-    line-height: 1.4;
+    line-height: 1.5;
     margin-bottom: 1rem;
 }
 
 ul {
-    list-style-position: inside;
+    /*list-style-position: inside;*/
+}
+
+li::marker {
+    font-family: "Georgia", serif;
+    font-size: .75rem;
+    color: rgb(176, 143, 95);
+    text-indent: -5px;
 }
 
 p + h2 {
@@ -70,7 +77,9 @@ section {
 
 .title {}
 
-.subtitle {}
+.subtitle {
+    font-weight: 600;
+}
 
 /* Grid */
 .grid {
