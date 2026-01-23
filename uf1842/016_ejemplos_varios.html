@@ -55,6 +55,48 @@
 			border-bottom-left-radius: .25rem;
 			cursor: pointer;
 		}
+
+		.contenedor {
+			padding: 3rem;
+			margin: 0 auto;
+			max-width: 40rem;
+			display: flex;
+            flex-direction: column
+		}
+		.tabs,
+        .tab-content {
+			display: flex;
+		}
+		.tabs .tab {
+			bottom: -1px;
+			position: relative;
+			display: inline-block;
+			padding: 1rem 2rem;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #e7b91c;
+			transition: .15s all;
+			color: #595959;
+            font-weight: 600;
+		}
+		.tabs .tab:not(.active):hover {
+			cursor: pointer;
+			background-color: rgba(231, 185, 28, 0.15);
+		}
+		.tab-content {
+			padding: 2rem;
+			display: none;
+            border: 1px solid #e7b91c;
+		}
+		.tabs .tab.active {
+			background-color: #f5f5f5;
+			color: #000;
+			border: 1px solid #e7b91c;
+			border-bottom-color: #f5f5f5;
+		}
+		.tab-content.active {
+            background-color: #f5f5f5;
+			display: inline-block;
+		}
 	</style>
 
 </head>
@@ -70,17 +112,21 @@
 		<p>Utilizados <span id="cantidad">0</span> de 40 caracteres.</p>
 		<button	id="back">Back</button>
 		<hr>
-		<div class="contentdor">
+		<div class="contenedor">
 			<div class="tabs">
 				<div class="tab active" data-target="tab1">Tab 1</div>
 				<div class="tab" data-target="tab2">Tab 2</div>
 				<div class="tab" data-target="tab3">Tab 3</div>
 			</div>
-			<div id="tab1" class="tab-content active">Content de la pestaña 1</div>
-			<div id="tab2" class="tab-content">Content de la pestaña 2</div>
-			<div id="tab3" class="tab-content">Content de la pestaña 3</div>
+			<!-- Contenidos de las pestañas -->
+			<div id="tab1" class="tab-content active">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus esse possimus vel! Dolores eos error eum libero nisi quia rem saepe ut vitae. Doloribus ea officiis placeat praesentium velit?</div>
+			<div id="tab2" class="tab-content">Dolor sit amet, consectetur adipisicing elit. Animi et hic, illum laborum magnam tempora tempore ut. Cum debitis, enim ex excepturi inventore labore nam nisi perspiciatis placeat temporibus ullam?</div>
+			<div id="tab3" class="tab-content">Consectetur adipisicing elit. Ab facilis fuga nemo qui ullam. Cum incidunt itaque porro quidem, repellendus voluptates? Beatae consequuntur, eligendi eum inventore maiores sed. Molestiae, nulla!</div>
 		</div>
+
+		<hr>
 	</div>
+
 
 
 	<div id="flecha" class="flecha">^</div>
@@ -126,8 +172,23 @@
 
 
 
-        let tab = document.querySelectorAll(".tab");
+        let tabs = document.querySelectorAll(".tab");
         let contenidos = document.querySelectorAll(".tab-content");
+
+        for (let i = 0; i < tabs.length; i++) {
+            tabs[i].addEventListener("click", (el) => {
+                for (let j = 0; j < tabs.length; j++) {
+                    tabs[j].classList.remove("active");
+                    contenidos[j].classList.remove("active");
+				}
+                console.log(el.target);
+                el.target.classList.add("active");
+                let targetId = el.target.getAttribute("data-target");
+                let targetContent = document.getElementById(targetId);
+                targetContent.classList.add("active");
+			});
+
+		}
 
 
 

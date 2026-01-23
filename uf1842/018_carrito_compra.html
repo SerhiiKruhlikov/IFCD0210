@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>017 Acordeon</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		body {
+			font-family: 'Helvetica Neue', sans-serif;
+
+		}
+		.wrapper {
+            width: 100%;
+            max-width: 50rem;
+            height: 100vh;
+            margin: 0 auto;
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+		}
+		header {
+			padding: 1rem 0;
+			display: flex;
+            justify-content: space-between;
+			border-bottom: 1px solid #eee;
+			background-color: #abc7cc;
+        }
+		main {
+
+		}
+		footer {
+            padding: 1rem 0;
+			margin-top: auto;
+		}
+		.catalog {
+
+			display: flex;
+			gap: 1rem;
+		}
+		.product {
+			border: 1px solid #8a8a8a;
+			padding: 1rem;
+		}
+
+        /* Добавьте в стили */
+        .cart[data-cart] {
+            min-height: 50px;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .cart[data-cart]:empty {
+            color: #999;
+            font-style: italic;
+        }
+
+        .product button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .product button:hover {
+            background: #0056b3;
+        }
+
+        [data-estimate] {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+	</style>
+
+</head>
+<body>
+
+<div class="wrapper">
+	<header>
+		<h1>Amazama</h1>
+	</header>
+	<main>
+		<div class="catalog">
+			<div class="product" data-product>
+				<div class="product-name" data-product-name>Product 1</div>
+				<div class="product-price" data-product-price="4">4 €</div>
+				<button>Add to cart</button>
+			</div>
+			<div class="product" data-product>
+				<div class="product-name" data-product-name>Product 2</div>
+				<div class="product-price" data-product-price="12">12 €</div>
+				<button>Add to cart</button>
+			</div>
+			<div class="product" data-product>
+				<div class="product-name" data-product-name>Product 3</div>
+				<div class="product-price" data-product-price="21">21 €</div>
+				<button>Add to cart</button>
+			</div>
+			<div class="product" data-product>
+				<div class="product-name" data-product-name>Product 4</div>
+				<div class="product-price" data-product-price="13">13 €</div>
+				<button>Add to cart</button>
+			</div>
+		</div>
+	</main>
+	<aside>
+		<h2>Shopping Cart</h2>
+		<div class="cart" data-cart>
+			--- empty cart ---
+		</div>
+		<div class="cart-total">
+			Total: <span class="estimate" data-estimate="0">0 €</span>
+		</div>
+	</aside>
+	<footer>
+		Copyright &copy; 2026 Apple Inc. Reservados todos los derechos.
+	</footer>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const products = document.querySelectorAll('[data-product]');
+        const cart = document.querySelector('[data-cart]');
+        const estimateElement = document.querySelector('[data-estimate]');
+
+        if (products.length === 0) return;
+
+        products.forEach((item) => {
+            const itemId = 'sku-' + Math.random().toString(36).substring(2, 9);
+            const button = item.querySelector('button');
+
+            item.dataset.productSku = itemId;
+
+            if (button._addCartHandler) {
+                button.removeEventListener("click", button._addCartHandler);
+                button._addCartHandler = null;
+            }
+
+            button._addCartHandler = function(event){
+                event.preventDefault();
+                addToCart(item);
+            }
+
+            button.addEventListener("click", button._addCartHandler);
+
+		});
+
+        function addToCart(item) {
+            const sku = item.dataset.productSku;
+            const price = parseFloat(item.querySelector('[data-product-price]').dataset.productPrice);
+            const name = item.querySelector('[data-product-name]').textContent;
+            const qty = 1;
+
+            const existingItem = cart.querySelector(`[data-product-sku="${sku}"]`);
+
+            if (existingItem) {
+                let currentQty = parseInt(existingItem.dataset.productQty);
+                let newQty = currentQty + qty;
+                let newTotal = price * newQty;
+
+                // Обновляем данные
+                existingItem.dataset.productQty = newQty;
+                existingItem.dataset.productTotal = newTotal.toFixed(2);
+                existingItem.textContent = `${name} (${newQty} pcs.), ${newTotal.toFixed(2)} €`;
+			} else {
+                const cartItem = document.createElement('div');
+                const total = price * qty;
+
+                cartItem.dataset.productSku = sku;
+                cartItem.dataset.productQty = qty;
+                cartItem.dataset.productPrice = price.toFixed(2);
+                cartItem.dataset.productTotal = total.toFixed(2);
+                cartItem.textContent = `${name} (${qty} pcs.), ${total.toFixed(2)} €`;
+
+                if (cart.textContent.includes('--- empty cart ---')) {
+                    cart.innerHTML = '';
+                }
+
+                cart.append(cartItem);
+			}
+
+            updateCartTotal();
+        }
+
+        function updateCartTotal() {
+            let total = 0;
+            const cartItems = cart.querySelectorAll('[data-product-total]');
+
+            cartItems.forEach((item) => {
+                total += parseFloat(item.dataset.productTotal);
+			});
+
+            estimateElement.dataset.estimate = total.toFixed(2);
+            estimateElement.textContent = `${total.toFixed(2)} €`;
+		}
+    });
+</script>
+
+</body>
+</html>

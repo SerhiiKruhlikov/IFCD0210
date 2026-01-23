@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>017 Acordeon</title>
+	<style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            font-family: 'Helvetica Neue', sans-serif;
+            line-height: 1.4;
+        }
+
+        body {
+            height: 100vw;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .accordion {
+            margin-top: auto;
+            max-width: 50rem;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #d2d2d2;
+        }
+
+        .accordion-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .accordion-item:not(:last-child) {
+            border-bottom: 1px solid #d2d2d2;
+        }
+
+        .accordion-title,
+        .accordion-content {
+            padding: 1rem;
+        }
+
+        .accordion-item:is(.is-active) .accordion-title {
+            border-bottom: 1px solid #d2d2d2;
+        }
+
+        .accordion-item .accordion-content {
+            display: none;
+        }
+
+        .accordion-item.is-active .accordion-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .accordion-item {
+        }
+
+        .accordion-item {
+        }
+
+        .accordion-item {
+        }
+	</style>
+</head>
+<body>
+
+<h1>Ejemplo Acordeon</h1>
+
+<div class="accordion" data-accordion>
+	<div class="accordion-item is-active" data-accordion-item>
+		<a href="#" class="accordion-title">Accordion 1</a>
+		<div class="accordion-content" data-tab-content>
+			<p>Panel 1. Lorem ipsum dolor</p>
+			<a href="#">Nowhere to Go</a>
+		</div>
+	</div>
+	<div class="accordion-item" data-accordion-item>
+		<a href="#" class="accordion-title">Accordion 2</a>
+		<div class="accordion-content" data-tab-content>
+			<p>Panel 2. Lorem ipsum dolor</p>
+			<a href="#">Nowhere to Go</a>
+		</div>
+	</div>
+	<div class="accordion-item" data-accordion-item>
+		<a href="#" class="accordion-title">Accordion 3</a>
+		<div class="accordion-content" data-tab-content>
+			<p>Panel 3. Lorem ipsum dolor</p>
+			<a href="#">Nowhere to Go</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const accordionContainer = document.querySelector('[data-accordion]');
+        if (!accordionContainer) return;
+
+        const accordionItems = accordionContainer.querySelectorAll('[data-accordion-item]');
+
+        accordionItems.forEach((item) => {
+            const itemId = Math.random().toString(36).substring(2, 9) + '-accordion';
+
+            const title = item.querySelector('.accordion-title');
+            const content = item.querySelector('[data-tab-content]');
+
+            title.id = `${itemId}-label`;
+            title.setAttribute('aria-controls', `${itemId}-content`);
+            title.setAttribute('role', 'button');
+            title.setAttribute('tabindex', '0');
+
+            content.id = `${itemId}-content`;
+            content.setAttribute('aria-labelledby', `${itemId}-label`);
+
+            const isInitiallyActive = item.classList.contains('is-active');
+            title.setAttribute('aria-expanded', isInitiallyActive.toString());
+            content.setAttribute('aria-hidden', (!isInitiallyActive).toString());
+
+            title.addEventListener('click', function (e) {
+                e.preventDefault();
+                toggleAccordion(item);
+            });
+
+            title.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleAccordion(item);
+                }
+            });
+
+            function toggleAccordion(itemToToggle) {
+                const isCurrentlyActive = itemToToggle.classList.contains('is-active');
+                const title = itemToToggle.querySelector('.accordion-title');
+                const content = itemToToggle.querySelector('[data-tab-content]');
+
+                accordionItems.forEach((otherItem) => {
+                    if (otherItem !== itemToToggle) {
+                        otherItem.classList.remove('is-active');
+                        otherItem.querySelector('.accordion-title').setAttribute('aria-expanded', 'false');
+                        otherItem.querySelector('[data-tab-content]').setAttribute('aria-hidden', 'true');
+                    }
+                });
+
+                if (!isCurrentlyActive) {
+                    itemToToggle.classList.add('is-active');
+                    title.setAttribute('aria-expanded', 'true');
+                    content.setAttribute('aria-hidden', 'false');
+                }
+                // else {
+                //     itemToToggle.classList.remove('is-active');
+                //     title.setAttribute('aria-expanded', 'false');
+                //     content.setAttribute('aria-hidden', 'true');
+                // }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
