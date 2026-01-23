@@ -6,127 +6,322 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>017 Acordeon</title>
 	<style>
-		* {
-			padding: 0;
-			margin: 0;
-		}
-		body {
-			font-family: 'Helvetica Neue', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
-		}
-		.wrapper {
+        /* Сброс и базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Manrope", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ОБЩИЙ КОНТЕЙНЕР - ключевая настройка ширины */
+        .container {
             width: 100%;
-            max-width: 50rem;
-            height: 100vh;
+            max-width: 1280px; /* Современная стандартная ширина */
             margin: 0 auto;
+            padding: 0 24px; /* Отступы на мобильных */
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 40px; /* Больше отступов на планшетах и ПК */
+            }
+        }
+
+        /* HEADER */
+        .header {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .header__container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+        }
+
+        .header__logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .header__nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+		
+		.header__item {
+            position: relative;
+			transition: .3s all;
+		}
+
+        .header__link {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            white-space: nowrap;
+			display: flex;
+            align-items: center;
+			gap: .5rem;
+        }
+
+        .header__link:hover {
+            color: #000;
+        }
+
+        .header__menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* MAIN */
+        .main {
+            flex: 1; /* Занимает всё доступное пространство */
+            padding: 40px 0;
+            background-color: #fafafa;
+        }
+
+        .main__container {
+            padding: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .main {
+                padding: 24px 0;
+            }
+            .main__container {
+                padding: 32px 24px;
+            }
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: #111;
+            color: #aaa;
+            padding: 40px 0;
+            border-top: 1px solid #333;
+        }
+
+        .footer__container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer__container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+            }
+        }
+
+        .footer__copyright {
+            font-size: 0.9rem;
+        }
+
+        .footer__nav {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer__link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer__link:hover {
+            color: #fff;
+        }
+
+        /* АДАПТИВ ДЛЯ МЕНЮ НА МОБИЛЬНЫХ */
+        @media (max-width: 768px) {
+            .header__nav {
+                display: none;
+            }
+
+            .header__menu-btn {
+                display: block;
+            }
+
+            .footer__nav {
+                gap: 16px;
+            }
+        }
+		
+		/*	Cesta */
+		.cesta_aside {
+            position: absolute;
+			right: 0;
+			background-color: #fff;
+			border: 1px solid #eee;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+			padding: 1rem;
+			min-width: 20rem;
 			display: flex;
 			flex-direction: column;
+			gap: 1rem;
+			opacity: 0;
+			z-index: -1000;
+            transition: 1s opacity;
+		}
+		.cesta_aside.is-visible,
+        .header__item:hover .cesta_aside {
+            opacity: 1;
+            z-index: 10;
+        }
+		.header__item .cart-qty {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 2rem;
+			height: 2rem;
+			background-color: #e7b91c;
+			border-radius: 1rem;
+
+		}
+
+		.cart-total {
+			background-color: #eee;
+			font-weight: 700;
+		}
+
+		/* CATALOG		*/
+        .catalog {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
 			gap: 2rem;
 		}
-		header {
-			padding: 1rem 0;
-			display: flex;
-            justify-content: space-between;
-			border-bottom: 1px solid #eee;
-			background-color: #abc7cc;
-        }
-		main {
-
-		}
-		footer {
-            padding: 1rem 0;
-			margin-top: auto;
-		}
-		.catalog {
-
-			display: flex;
-			gap: 1rem;
-		}
-		.product {
-			border: 1px solid #8a8a8a;
+		.catalog .product {
+			width: calc((100% - (3 * 2rem)) / 4);
+			border: 1px solid #eee;
 			padding: 1rem;
+			transition: .3s all;
+		}
+		.catalog .product:hover {
+			cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+		}
+        .catalog .product .product-button-cart {
+            font-size: 1.125rem;
+			font-weight: 600;
+			padding: 5px;
+			background-color: #e7b91c;
+			border: 1px solid #e7b91c;
+			transition: .3s all;
+		}
+        .catalog .product .product-button-cart:hover {
+            background-color: #d9ac1a;
+			cursor: pointer;
 		}
 
-        /* Добавьте в стили */
-        .cart[data-cart] {
-            min-height: 50px;
-            border: 1px solid #ddd;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-
-        .cart[data-cart]:empty {
-            color: #999;
-            font-style: italic;
-        }
-
-        .product button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            margin-top: 0.5rem;
-        }
-
-        .product button:hover {
-            background: #0056b3;
-        }
-
-        [data-estimate] {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #333;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 4px;
-        }
 	</style>
 
 </head>
 <body>
-
-<div class="wrapper">
-	<header>
-		<h1>Amazama</h1>
+	<header class="header">
+		<div class="header__container container">
+			<a href="/" class="header__logo">AMZ</a>
+			<nav class="header__nav">
+				<div class="header__item">
+					<a href="#" class="header__link">Inicio</a>
+				</div>
+				<div class="header__item">
+					<a href="#" class="header__link">Tienda</a>
+				</div>
+				<div class="header__item">
+					<a href="#" class="header__link">Nosotros</a>
+				</div>
+				<div class="header__item">
+					<a href="#" class="header__link">Contacto</a>
+				</div>
+				<div class="header__item">
+					<a href="#" class="header__link">Cesta <span class="cart-qty" data-cart-qty="0">0</span></a>
+					<div class="cesta_aside" data-cart-panel>
+						<h2>Cart</h2>
+						<div class="cart" data-cart>
+							--- empty cart ---
+						</div>
+						<div class="cart-total">
+							Total: <span class="estimate" data-estimate="0">0 €</span>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<button class="header__menu-btn" aria-label="Меню">☰</button>
+		</div>
 	</header>
-	<main>
-		<div class="catalog">
-			<div class="product" data-product>
-				<div class="product-name" data-product-name>Product 1</div>
-				<div class="product-price" data-product-price="4">4 €</div>
-				<button>Add to cart</button>
-			</div>
-			<div class="product" data-product>
-				<div class="product-name" data-product-name>Product 2</div>
-				<div class="product-price" data-product-price="12">12 €</div>
-				<button>Add to cart</button>
-			</div>
-			<div class="product" data-product>
-				<div class="product-name" data-product-name>Product 3</div>
-				<div class="product-price" data-product-price="21">21 €</div>
-				<button>Add to cart</button>
-			</div>
-			<div class="product" data-product>
-				<div class="product-name" data-product-name>Product 4</div>
-				<div class="product-price" data-product-price="13">13 €</div>
-				<button>Add to cart</button>
+	<main class="main">
+		<div class="main__container container">
+			<div class="catalog">
+				<div class="product" data-product>
+					<div class="product-name" data-product-name>Product 1</div>
+					<div class="product-price" data-product-price="4">4 €</div>
+					<button class="product-button-cart">Add to cart</button>
+				</div>
+				<div class="product" data-product>
+					<div class="product-name" data-product-name>Product 2</div>
+					<div class="product-price" data-product-price="12">12 €</div>
+					<button class="product-button-cart">Add to cart</button>
+				</div>
+				<div class="product" data-product>
+					<div class="product-name" data-product-name>Product 3</div>
+					<div class="product-price" data-product-price="21">21 €</div>
+					<button class="product-button-cart">Add to cart</button>
+				</div>
+				<div class="product" data-product>
+					<div class="product-name" data-product-name>Product 4</div>
+					<div class="product-price" data-product-price="13">13 €</div>
+					<button class="product-button-cart">Add to cart</button>
+				</div>
 			</div>
 		</div>
 	</main>
-	<aside>
-		<h2>Shopping Cart</h2>
-		<div class="cart" data-cart>
-			--- empty cart ---
+	<footer class="footer">
+		<div class="footer__container container">
+			<div class="footer__copyright">© 2024 Компания. Все права защищены.</div>
+			<nav class="footer__nav">
+				<a href="#" class="footer__link">Политика конфиденциальности</a>
+				<a href="#" class="footer__link">Условия использования</a>
+			</nav>
 		</div>
-		<div class="cart-total">
-			Total: <span class="estimate" data-estimate="0">0 €</span>
-		</div>
-	</aside>
-	<footer>
-		Copyright &copy; 2026 Apple Inc. Reservados todos los derechos.
 	</footer>
-</div>
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
@@ -162,26 +357,37 @@
             const name = item.querySelector('[data-product-name]').textContent;
             const qty = 1;
 
+            const cartQty = document.querySelector('[data-cart-qty]');
+
             const existingItem = cart.querySelector(`[data-product-sku="${sku}"]`);
 
             if (existingItem) {
                 let currentQty = parseInt(existingItem.dataset.productQty);
                 let newQty = currentQty + qty;
                 let newTotal = price * newQty;
+                let newCartQty = parseInt(cartQty.dataset.cartQty) + qty;
 
                 // Обновляем данные
                 existingItem.dataset.productQty = newQty;
                 existingItem.dataset.productTotal = newTotal.toFixed(2);
                 existingItem.textContent = `${name} (${newQty} pcs.), ${newTotal.toFixed(2)} €`;
+
+                cartQty.dataset.cartQty = newCartQty;
+				cartQty.innerText = newCartQty;
+
 			} else {
                 const cartItem = document.createElement('div');
                 const total = price * qty;
+                let newCartQty = parseInt(cartQty.dataset.cartQty) + qty;
 
                 cartItem.dataset.productSku = sku;
                 cartItem.dataset.productQty = qty;
                 cartItem.dataset.productPrice = price.toFixed(2);
                 cartItem.dataset.productTotal = total.toFixed(2);
                 cartItem.textContent = `${name} (${qty} pcs.), ${total.toFixed(2)} €`;
+
+                cartQty.dataset.cartQty = newCartQty;
+                cartQty.innerText = newCartQty;
 
                 if (cart.textContent.includes('--- empty cart ---')) {
                     cart.innerHTML = '';
@@ -191,6 +397,15 @@
 			}
 
             updateCartTotal();
+
+            let cartPanel = document.querySelector('[data-cart-panel]');
+            cartPanel.classList.add('is-visible');
+
+            setTimeout((event) => {
+                cartPanel.classList.remove('is-visible');
+			}, 2000);
+
+
         }
 
         function updateCartTotal() {
