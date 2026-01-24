@@ -8,6 +8,17 @@
 	<style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(20%);
+            }
+        }
+
         /* Сброс и базовые стили */
         * {
             margin: 0;
@@ -47,9 +58,10 @@
             padding: 16px 0;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             backdrop-filter: blur(10px);
             background-color: rgba(255, 255, 255, 0.95);
+
         }
 
         .header__container {
@@ -185,7 +197,10 @@
         }
 		
 		/*	Cesta */
-		.cesta_aside {
+		.header__item svg {
+			fill: #e7b91c;
+		}
+        .cesta_aside {
             position: absolute;
 			right: 0;
 			background-color: #fff;
@@ -193,17 +208,30 @@
 			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
 			padding: 1rem;
 			min-width: 20rem;
-			display: flex;
 			flex-direction: column;
 			gap: 1rem;
 			opacity: 0;
-			z-index: -1000;
-            transition: 1s opacity;
+			z-index: -1;
+			top: 0;
+            display: flex;
+			transform: translateY(-100%);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
 		}
-		.cesta_aside.is-visible,
-        .header__item:hover .cesta_aside {
+        .cesta_aside.is-visible {
+            pointer-events: auto;
             opacity: 1;
             z-index: 10;
+            transform: translateY(20%);
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .header__item:hover .cesta_aside {
+            pointer-events: auto;
+            opacity: 1;
+            z-index: 10;
+            transform: translateY(20%);
+            animation: slideIn 0.3s ease forwards;
         }
 		.header__item .cart-qty {
 			display: flex;
@@ -227,16 +255,24 @@
 			flex-direction: row;
 			flex-wrap: wrap;
 			gap: 2rem;
+			margin: 0 auto;
+            justify-content: center;
 		}
 		.catalog .product {
-			width: calc((100% - (3 * 2rem)) / 4);
+			min-width: calc((100% - (3 * 2rem)) / 4);
 			border: 1px solid #eee;
-			padding: 1rem;
+			/*padding: 1rem;*/
 			transition: .3s all;
 		}
 		.catalog .product:hover {
 			cursor: pointer;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+		}
+		.catalog .product .product-content {
+			padding: 1rem;
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
 		}
         .catalog .product .product-button-cart {
             font-size: 1.125rem;
@@ -250,14 +286,20 @@
             background-color: #d9ac1a;
 			cursor: pointer;
 		}
-
+		.catalog .product .product-media .media__picture .media__image {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+        /*.cesta_aside.is-visible {*/
+        /*    */
+        /*}*/
 	</style>
-
 </head>
 <body>
 	<header class="header">
 		<div class="header__container container">
-			<a href="/" class="header__logo">AMZ</a>
+			<a href="/018_carrito_compra.html" class="header__logo">AMZ</a>
 			<nav class="header__nav">
 				<div class="header__item">
 					<a href="#" class="header__link">Inicio</a>
@@ -272,11 +314,14 @@
 					<a href="#" class="header__link">Contacto</a>
 				</div>
 				<div class="header__item">
-					<a href="#" class="header__link">Cesta <span class="cart-qty" data-cart-qty="0">0</span></a>
+					<a href="#" class="header__link">
+						<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 640 640"><path d="M320 64C326.6 64 332.9 66.7 337.4 71.5L481.4 223.5L481.9 224L560 224C577.7 224 592 238.3 592 256C592 270.5 582.4 282.7 569.2 286.7L523.1 493.9C516.6 523.2 490.6 544 460.6 544L179.3 544C149.3 544 123.3 523.2 116.8 493.9L70.8 286.7C57.6 282.8 48 270.5 48 256C48 238.3 62.3 224 80 224L158.1 224L158.6 223.5L302.6 71.5C307.1 66.7 313.4 64 320 64zM320 122.9L224.2 224L415.8 224L320 122.9zM240 328C240 314.7 229.3 304 216 304C202.7 304 192 314.7 192 328L192 440C192 453.3 202.7 464 216 464C229.3 464 240 453.3 240 440L240 328zM320 304C306.7 304 296 314.7 296 328L296 440C296 453.3 306.7 464 320 464C333.3 464 344 453.3 344 440L344 328C344 314.7 333.3 304 320 304zM448 328C448 314.7 437.3 304 424 304C410.7 304 400 314.7 400 328L400 440C400 453.3 410.7 464 424 464C437.3 464 448 453.3 448 440L448 328z"/></svg>
+						Cesta
+						<span class="cart-qty" data-cart-qty="0">0</span></a>
 					<div class="cesta_aside" data-cart-panel>
-						<h2>Cart</h2>
+						<h2>Cesta</h2>
 						<div class="cart" data-cart>
-							--- empty cart ---
+							--- empty cesta ---
 						</div>
 						<div class="cart-total">
 							Total: <span class="estimate" data-estimate="0">0 €</span>
@@ -291,136 +336,211 @@
 		<div class="main__container container">
 			<div class="catalog">
 				<div class="product" data-product>
-					<div class="product-name" data-product-name>Product 1</div>
-					<div class="product-price" data-product-price="4">4 €</div>
-					<button class="product-button-cart">Add to cart</button>
+					<div class="product-media">
+						<picture class="media__picture">
+							<source type="image/webp" media="(max-width: 1023px)" srcset="https://picsum.photos/300/300.webp?1, https://picsum.photos/600/600.webp?1 2x" sizes="580px">
+							<img class="media__image" src="https://picsum.photos/300/300.jpg?1" srcset="https://picsum.photos/300/300.jpg?1 1x, https://picsum.photos/600/600.jpg?1 2x" width="580" height="387" fetchpriority="high" style="opacity: 1; transition: opacity 0.3s ease-in-out; background-color: rgb(245, 245, 245);" onload="this.style.opacity=1;" onerror="this.onerror=null; this.src='https://picsum.photos/300/300.jpg?1';">
+						</picture>
+					</div>
+					<div class="product-content">
+						<div class="product-name" data-product-name>Product 1</div>
+						<div class="product-price" data-product-price="4">Precio: 4 €</div>
+						<button class="product-button-cart">Add to cart</button>
+					</div>
 				</div>
 				<div class="product" data-product>
-					<div class="product-name" data-product-name>Product 2</div>
-					<div class="product-price" data-product-price="12">12 €</div>
-					<button class="product-button-cart">Add to cart</button>
+					<div class="product-media">
+						<picture class="media__picture">
+							<source type="image/webp" media="(max-width: 1023px)" srcset="https://picsum.photos/300/300.webp?2, https://picsum.photos/600/600.webp?2 2x" sizes="580px">
+							<img class="media__image" src="https://picsum.photos/300/300.jpg?2" srcset="https://picsum.photos/300/300.jpg?2 1x, https://picsum.photos/600/600.jpg?2 2x" width="580" height="387" fetchpriority="high" style="opacity: 1; transition: opacity 0.3s ease-in-out; background-color: rgb(245, 245, 245);" onload="this.style.opacity=1;" onerror="this.onerror=null; this.src='https://picsum.photos/300/300.jpg?2';">
+						</picture>
+					</div>
+					<div class="product-content">
+						<div class="product-name" data-product-name>Product 2</div>
+						<div class="product-price" data-product-price="12">Precio: 12 €</div>
+						<button class="product-button-cart">Add to cart</button>
+					</div>
 				</div>
 				<div class="product" data-product>
-					<div class="product-name" data-product-name>Product 3</div>
-					<div class="product-price" data-product-price="21">21 €</div>
-					<button class="product-button-cart">Add to cart</button>
+					<div class="product-media">
+						<picture class="media__picture">
+							<source type="image/webp" media="(max-width: 1023px)" srcset="https://picsum.photos/300/300.webp?3, https://picsum.photos/600/600.webp?3 2x" sizes="580px">
+							<img class="media__image" src="https://picsum.photos/300/300.jpg?3" srcset="https://picsum.photos/300/300.jpg?3 1x, https://picsum.photos/600/600.jpg?3 2x" width="580" height="387" fetchpriority="high" style="opacity: 1; transition: opacity 0.3s ease-in-out; background-color: rgb(245, 245, 245);" onload="this.style.opacity=1;" onerror="this.onerror=null; this.src='https://picsum.photos/300/300.jpg?3';">
+						</picture>
+					</div>
+					<div class="product-content">
+						<div class="product-name" data-product-name>Product 3</div>
+						<div class="product-price" data-product-price="21">Precio: 21 €</div>
+						<button class="product-button-cart">Add to cart</button>
+					</div>
 				</div>
 				<div class="product" data-product>
-					<div class="product-name" data-product-name>Product 4</div>
-					<div class="product-price" data-product-price="13">13 €</div>
-					<button class="product-button-cart">Add to cart</button>
+					<div class="product-media">
+						<picture class="media__picture">
+							<source type="image/webp" media="(max-width: 1023px)" srcset="https://picsum.photos/300/300.webp?4, https://picsum.photos/600/600.webp?4 2x" sizes="580px">
+							<img class="media__image" src="https://picsum.photos/300/300.jpg?4" srcset="https://picsum.photos/300/300.jpg?4 1x, https://picsum.photos/600/600.jpg?4 2x" width="580" height="387" fetchpriority="high" style="opacity: 1; transition: opacity 0.3s ease-in-out; background-color: rgb(245, 245, 245);" onload="this.style.opacity=1;" onerror="this.onerror=null; this.src='https://picsum.photos/300/300.jpg?4';">
+						</picture>
+					</div>
+					<div class="product-content">
+						<div class="product-name" data-product-name>Product 4</div>
+						<div class="product-price" data-product-price="13">Precio: 13 €</div>
+						<button class="product-button-cart">Add to cart</button>
+					</div>
+				</div>
+				<div class="product" data-product>
+					<div class="product-media">
+						<picture class="media__picture">
+							<source type="image/webp" media="(max-width: 1023px)" srcset="https://picsum.photos/300/300.webp?5, https://picsum.photos/600/600.webp?5 2x" sizes="580px">
+							<img class="media__image" src="https://picsum.photos/300/300.jpg?5" srcset="https://picsum.photos/300/300.jpg?5 1x, https://picsum.photos/600/600.jpg?5 2x" width="580" height="387" fetchpriority="high" style="opacity: 1; transition: opacity 0.3s ease-in-out; background-color: rgb(245, 245, 245);" onload="this.style.opacity=1;" onerror="this.onerror=null; this.src='https://picsum.photos/300/300.jpg?5';">
+						</picture>
+					</div>
+					<div class="product-content">
+						<div class="product-name" data-product-name>Product 5</div>
+						<div class="product-price" data-product-price="23">Precio: 23 €</div>
+						<button class="product-button-cart">Add to cart</button>
+					</div>
+				</div>
+				<div class="product" data-product>
+					<div class="product-media">
+						<picture class="media__picture">
+							<source type="image/webp" media="(max-width: 1023px)" srcset="https://picsum.photos/300/300.webp?6, https://picsum.photos/600/600.webp?6 2x" sizes="580px">
+							<img class="media__image" src="https://picsum.photos/300/300.jpg?6" srcset="https://picsum.photos/300/300.jpg?6 1x, https://picsum.photos/600/600.jpg?6 2x" width="580" height="387" fetchpriority="high" style="opacity: 1; transition: opacity 0.3s ease-in-out; background-color: rgb(245, 245, 245);" onload="this.style.opacity=1;" onerror="this.onerror=null; this.src='https://picsum.photos/300/300.jpg?6';">
+						</picture>
+					</div>
+					<div class="product-content">
+						<div class="product-name" data-product-name>Product 6</div>
+						<div class="product-price" data-product-price="18">Precio: 18 €</div>
+						<button class="product-button-cart">Add to cart</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</main>
 	<footer class="footer">
 		<div class="footer__container container">
-			<div class="footer__copyright">© 2024 Компания. Все права защищены.</div>
+			<div class="footer__copyright">© 2026 Empresa. Todos los derechos reservados.</div>
 			<nav class="footer__nav">
-				<a href="#" class="footer__link">Политика конфиденциальности</a>
-				<a href="#" class="footer__link">Условия использования</a>
+				<a href="#" class="footer__link">Política de privacidad</a>
+				<a href="#" class="footer__link">Términos de uso</a>
 			</nav>
 		</div>
 	</footer>
 
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-        const products = document.querySelectorAll('[data-product]');
-        const cart = document.querySelector('[data-cart]');
-        const estimateElement = document.querySelector('[data-estimate]');
+	<script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const products = document.querySelectorAll('[data-product]');
+            const cart = document.querySelector('[data-cart]');
+            const estimateElement = document.querySelector('[data-estimate]');
+            const cartPanel = document.querySelector('[data-cart-panel]');
 
-        if (products.length === 0) return;
+            let cartPanelTimeout = null;
 
-        products.forEach((item) => {
-            const itemId = 'sku-' + Math.random().toString(36).substring(2, 9);
-            const button = item.querySelector('button');
+            if (products.length === 0) return;
 
-            item.dataset.productSku = itemId;
+            products.forEach((item) => {
+                const itemId = 'sku-' + Math.random().toString(36).substring(2, 9);
+                const button = item.querySelector('button');
 
-            if (button._addCartHandler) {
-                button.removeEventListener("click", button._addCartHandler);
-                button._addCartHandler = null;
-            }
+                item.dataset.productSku = itemId;
 
-            button._addCartHandler = function(event){
-                event.preventDefault();
-                addToCart(item);
-            }
-
-            button.addEventListener("click", button._addCartHandler);
-
-		});
-
-        function addToCart(item) {
-            const sku = item.dataset.productSku;
-            const price = parseFloat(item.querySelector('[data-product-price]').dataset.productPrice);
-            const name = item.querySelector('[data-product-name]').textContent;
-            const qty = 1;
-
-            const cartQty = document.querySelector('[data-cart-qty]');
-
-            const existingItem = cart.querySelector(`[data-product-sku="${sku}"]`);
-
-            if (existingItem) {
-                let currentQty = parseInt(existingItem.dataset.productQty);
-                let newQty = currentQty + qty;
-                let newTotal = price * newQty;
-                let newCartQty = parseInt(cartQty.dataset.cartQty) + qty;
-
-                // Обновляем данные
-                existingItem.dataset.productQty = newQty;
-                existingItem.dataset.productTotal = newTotal.toFixed(2);
-                existingItem.textContent = `${name} (${newQty} pcs.), ${newTotal.toFixed(2)} €`;
-
-                cartQty.dataset.cartQty = newCartQty;
-				cartQty.innerText = newCartQty;
-
-			} else {
-                const cartItem = document.createElement('div');
-                const total = price * qty;
-                let newCartQty = parseInt(cartQty.dataset.cartQty) + qty;
-
-                cartItem.dataset.productSku = sku;
-                cartItem.dataset.productQty = qty;
-                cartItem.dataset.productPrice = price.toFixed(2);
-                cartItem.dataset.productTotal = total.toFixed(2);
-                cartItem.textContent = `${name} (${qty} pcs.), ${total.toFixed(2)} €`;
-
-                cartQty.dataset.cartQty = newCartQty;
-                cartQty.innerText = newCartQty;
-
-                if (cart.textContent.includes('--- empty cart ---')) {
-                    cart.innerHTML = '';
+                if (button._addCartHandler) {
+                    button.removeEventListener("click", button._addCartHandler);
+                    button._addCartHandler = null;
                 }
 
-                cart.append(cartItem);
-			}
+                button._addCartHandler = function(event){
+                    event.preventDefault();
+                    addToCart(item);
+                }
 
-            updateCartTotal();
+                button.addEventListener("click", button._addCartHandler);
 
-            let cartPanel = document.querySelector('[data-cart-panel]');
-            cartPanel.classList.add('is-visible');
+            });
 
-            setTimeout((event) => {
-                cartPanel.classList.remove('is-visible');
-			}, 2000);
+            function addToCart(item) {
+                const sku = item.dataset.productSku;
+                const price = parseFloat(item.querySelector('[data-product-price]').dataset.productPrice);
+                const name = item.querySelector('[data-product-name]').textContent;
+                const qty = 1;
 
+                const cartQty = document.querySelector('[data-cart-qty]');
 
-        }
+                const existingItem = cart.querySelector(`[data-product-sku="${sku}"]`);
 
-        function updateCartTotal() {
-            let total = 0;
-            const cartItems = cart.querySelectorAll('[data-product-total]');
+                if (existingItem) {
+                    let currentQty = parseInt(existingItem.dataset.productQty);
+                    let newQty = currentQty + qty;
+                    let newTotal = price * newQty;
+                    let newCartQty = parseInt(cartQty.dataset.cartQty) + qty;
 
-            cartItems.forEach((item) => {
-                total += parseFloat(item.dataset.productTotal);
-			});
+                    // Обновляем данные
+                    existingItem.dataset.productQty = newQty;
+                    existingItem.dataset.productTotal = newTotal.toFixed(2);
+                    existingItem.textContent = `${name} (${newQty} pcs.), ${newTotal.toFixed(2)} €`;
 
-            estimateElement.dataset.estimate = total.toFixed(2);
-            estimateElement.textContent = `${total.toFixed(2)} €`;
-		}
-    });
-</script>
+                    cartQty.dataset.cartQty = newCartQty;
+                    cartQty.innerText = newCartQty;
+
+                } else {
+                    const cartItem = document.createElement('div');
+                    const total = price * qty;
+                    let newCartQty = parseInt(cartQty.dataset.cartQty) + qty;
+
+                    cartItem.dataset.productSku = sku;
+                    cartItem.dataset.productQty = qty;
+                    cartItem.dataset.productPrice = price.toFixed(2);
+                    cartItem.dataset.productTotal = total.toFixed(2);
+                    cartItem.textContent = `${name} (${qty} pcs.), ${total.toFixed(2)} €`;
+
+                    cartQty.dataset.cartQty = newCartQty;
+                    cartQty.innerText = newCartQty;
+
+                    if (cart.textContent.includes('--- empty cesta ---')) {
+                        cart.innerHTML = '';
+                    }
+
+                    cart.append(cartItem);
+                }
+
+                updateCartTotal();
+                showCartPanel();
+            }
+
+            function updateCartTotal() {
+                let total = 0;
+                const cartItems = cart.querySelectorAll('[data-product-total]');
+
+                cartItems.forEach((item) => {
+                    total += parseFloat(item.dataset.productTotal);
+                });
+
+                estimateElement.dataset.estimate = total.toFixed(2);
+                estimateElement.textContent = `${total.toFixed(2)} €`;
+            }
+
+            function showCartPanel() {
+
+                // let cartPanel = document.querySelector('[data-cart-panel]');
+                // cartPanel.classList.add('is-visible');
+				//
+                // setTimeout(() => {
+                //     cartPanel.classList.remove('is-visible');
+                // }, 2500);
+
+                if (cartPanelTimeout) {
+                    clearTimeout(cartPanelTimeout);
+                }
+
+                cartPanel.classList.add('is-visible');
+
+                cartPanelTimeout = setTimeout(() => {
+                    cartPanel.classList.remove('is-visible');
+                    cartPanelTimeout = null;
+                    console.log('setTimeout');
+                }, 2500);
+            }
+        });
+	</script>
 
 </body>
 </html>

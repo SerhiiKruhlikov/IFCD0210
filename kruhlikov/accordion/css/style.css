@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Manrope", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container {
+    width: 100%;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+.header {
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 1rem 0;
+}
+.header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+.main__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+footer {
+    background-color: #111;
+    color: #aaa;
+    padding: 1rem 0;
+    border-top: 1px solid #333;
+}
+.footer__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.footer__copyright {
+    font-size: .9rem;
+}
+
+/* Accordion */
+.accordion {
+    list-style: none;
+    border: 1px solid #dcdcdc;
+    display: flex;
+    flex-direction: column;
+}
+.accordion__item {
+    display: flex;
+    flex-direction: column;
+}
+.accordion__item:not(:last-child) {
+    border-bottom: 1px solid #dcdcdc;
+}
+.accordion__title,
+.accordion__content {
+    overflow: hidden;
+    padding: 1rem;
+}
+.accordion__title {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    border: none;
+    background-color: #fff;
+    /*padding: 1rem;*/
+}
+.accordion__content {
+    position: relative;
+}
+.accordion__content::after {
+    content: "";
+    position: absolute;
+    background-color: #dcdcdc;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+}
+.accordion__item.is-active .accordion__content {
+    /*padding: 1rem;*/
+}
