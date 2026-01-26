@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Parte práctica – Examen</title>
+	<style>
+		h2 {
+			margin: 0;
+		}
+		.contenedor {
+			display: grid;
+			grid-template-columns: repeat(12, 1fr);
+            border-right: 1px solid #8a8a8a;
+            border-bottom: 1px solid #8a8a8a;
+		}
+		.col-1 {
+			grid-column: 1 / span 1;
+		}
+		.col-11 {
+			grid-column: 2 / span 11;
+		}
+		.col-2-11 {
+			grid-column: 2 / span 11;
+		}
+		.fila-4 {
+			grid-row: 1 / span 4;
+		}
+		.col {
+			border-top: 1px solid #8a8a8a;
+            border-left: 1px solid #8a8a8a;
+			padding: 1rem;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Parte práctica – Examen</h1>
+	</header>
+	<main>
+		<section class="contenedor">
+			<div class="col-1 fila-4 col">
+				<h2>1</h2>
+			</div>
+			<div class="col-11 col">
+				<p>(2,5 puntos ) Crea un programa en JavaScript que:</p>
+				<ul style="list-style-type: lower-latin;">
+					<li>Declare una variable llamada edad.</li>
+					<li>Si la edad es mayor o igual a 18, muestre por consola el mensaje: "Eres mayor de edad".</li>
+					<li>Si no, muestre: "Eres menor de edad"</li>
+				</ul>
+			</div>
+			<div class="col-2-11 col">
+				<h2>Respuesta</h2>
+			</div>
+			<div class="col-2-11 col">
+				<label for="edad">Indique su edad:</label>
+				<input type="number" name="edad" id="edad">
+				<button onclick="ejemplo1('edad', 'resultado1');">Ejecutar</button>
+				<script type="text/javascript">
+					function ejemplo1(id, element) {
+                        const edad = document.getElementById(id);
+                        const resultado = document.getElementById(element);
+                        if (edad.value)
+	                        resultado.innerText = (parseInt(edad.value) >= 18) ? 'Eres mayor de edad' : 'Eres menor de edad';
+                        else
+                            resultado.innerText = 'Indique la edad!';
+                    }
+				</script>
+			</div>
+			<div class="col-2-11 col">
+				<div id="resultado1">--- Resultado aquí ---</div>
+			</div>
+		</section>
+		<section class="contenedor">
+			<div class="col-1 fila-4 col">
+				<h2>2</h2>
+			</div>
+			<div class="col-11 col">
+				<p>(2,5 puntos) Dado el siguiente array: let numeros = [3, 7, 2, 9, 5, 10];</p>
+				<ul style="list-style-type: lower-latin;">
+					<li>Recorre el array usando un bucle for.</li>
+					<li>Calcula la suma total de los números.</li>
+					<li>Genera dinámicamente una lista HTML (Una ul con un li por cada elemento del array).</li>
+				</ul>
+			</div>
+			<div class="col-2-11 col">
+				<h2>Respuesta</h2>
+			</div>
+			<div class="col-2-11 col">
+				<button onclick="ejemplo2();">Ejecutar</button>
+				<script type="text/javascript">
+                    function ejemplo2() {
+                        let numeros = [3, 7, 2, 9, 5, 10];
+                        let sumaTotal = 0;
+                        const ul = document.createElement('ul');
+
+                        for (let i = 0; i < numeros.length; i++) {
+                            sumaTotal += numeros[i];
+
+                            let li = document.createElement('li');
+                            li.innerHTML = numeros[i];
+                            ul.appendChild(li);
+                        }
+
+                        document.getElementById('suma_total').innerText = sumaTotal;
+                        const resultado2 = document.getElementById('resultado2');
+                        resultado2.innerHTML = '';
+                        resultado2.appendChild(ul);
+                    }
+				</script>
+			</div>
+			<div class="col-2-11 col">
+				<div>Suma total de [3, 7, 2, 9, 5, 10]: <span id="suma_total">0</span></div>
+				<div id="resultado2">--- Resultado aquí ---</div>
+			</div>
+		</section>
+		<section class="contenedor">
+			<div class="col-1 fila-4 col">
+				<h2>3</h2>
+			</div>
+			<div class="col-11 col">
+				<p>(5 puntos) Crea un programa en JavaScript que gestione las calificaciones de un alumno usando una o más funciones.</p>
+				<ul style="list-style-type: lower-latin;">
+					<li>Crea una función llamada calcularResultado.</li>
+					<li>La función debe recibir un array de números que representan las notas de un alumno.</li>
+					<li>La función debe hacer lo siguiente:
+						<ol>
+							<li>Calcular la media de las notas.</li>
+							<li>Determinar el estado, es decir, si el alumno está aprobado o suspenso (media ≥ 5).</li>
+							<li>Determinar la calificación final según la media:
+								<ul>
+									<li>Media < 5 → "Insuficiente"</li>
+									<li>Media ≥ 5 y < 7 → "Suficiente"</li>
+									<li>Media ≥ 7 y < 9 → "Notable"</li>
+									<li>Media ≥ 9 → "Sobresaliente"</li>
+								</ul>
+							</li>
+							<li>La función debe devolver un array con la siguiente información:
+								<ul>
+									<li>[media, estado, calificacion]</li>
+								</ul>
+							</li>
+						</ol>
+					</li>
+				</ul>
+				<p>Llama a la función con un array de prueba y muestra los resultados por consola y en el DOM.</p>
+			</div>
+			<div class="col-2-11 col">
+				<h2>Respuesta</h2>
+			</div>
+			<div class="col-2-11 col">
+				<label for="notas">Indique las notas del alumno, separadas por comas:</label>
+				<input type="text" name="notas" id="notas">
+				<button onclick="calcularResultado('notas');">Ejecutar</button>
+				<script type="text/javascript">
+                    function calcularResultado(id) {
+                        const resultado3 = document.getElementById('resultado3');
+                        const numeros = document.getElementById(id).value;
+
+                        if (numeros) {
+							const arrayNotas = cadenaEnArray(numeros);
+							const media = calculoMedia(arrayNotas);
+
+							let estado = '';
+							let calificacion = '';
+
+							if (media < 5) {
+								estado = 'Suspenso';
+								calificacion = 'Insuficiente';
+							} else if (media < 7) {
+								estado = 'Aprobado';
+								calificacion = 'Suficiente';
+							} else if (media < 9) {
+								estado = 'Aprobado';
+								calificacion = 'Notable';
+							} else {
+								estado = 'Aprobado';
+								calificacion = 'Sobresaliente';
+							}
+
+							console.log([media, estado, calificacion]);
+							resultado3.innerHTML = `[${media}, ${estado}, ${calificacion}]`;
+						} else {
+                            resultado3.innerHTML = 'Indique las notas del alumno!';
+						}
+                    }
+
+                    function cadenaEnArray(cadena) {
+						let resultado = [];
+
+                        if (cadena.toString()) {
+							for (const arrayElement of cadena.split(',')) {
+								let n = parseInt(arrayElement);
+								if (!isNaN(n)) resultado.push(n);
+							}
+						}
+
+						return resultado;
+					}
+
+                    function calculoMedia(array) {
+                        let resultado = 0;
+
+                        if (Array.isArray(array)) {
+                            // Variante 1
+                            resultado = array.reduce((suma, numero) => suma + numero, 0) / array.length;
+
+                            // Variante 2
+							// let suma = 0;
+							//
+                            // for (const arrayElement of array)
+                            //     suma += arrayElement
+							//
+                            // resultado = suma / array.length;
+						}
+
+                        return resultado.toFixed(2);
+					}
+				</script>
+			</div>
+			<div class="col-2-11 col">
+				<div id="resultado3">--- Resultado aquí ---</div>
+			</div>
+		</section>
+	</main>
+</body>
+</html>

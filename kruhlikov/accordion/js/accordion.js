@@ -87,7 +87,8 @@ export default class Accordion {
             title: title,
             content: content,
             isOpen: item.classList.contains('is-active'),
-            id: itemId
+            id: itemId,
+            customPadding: content.dataset.accordionPadding
         };
 
         this._setupAriaAttributes(itemData);
@@ -164,22 +165,50 @@ export default class Accordion {
      * @private
      */
     _saveOriginalDimensions(item) {
-        const { content } = item;
+        const { content, customPadding, isOpen } = item;
         const computedStyle = window.getComputedStyle(content);
 
-        // Сохраняем полную высоту контента (когда открыт)
-        item.originalHeight = content.scrollHeight; // Вся высота содержимого
+        if (customPadding) {
+            const clone = content.cloneNode(true);
+            clone.style.height = 'auto';
+            clone.style.paddingTop = customPadding;
+            clone.style.paddingLeft = customPadding;
+            clone.style.paddingBottom = customPadding;
+            clone.style.paddingRight = customPadding;
+            clone.style.visibility = 'hidden';
+            clone.style.position = 'absolute';
+            clone.style.top = '-9999px';
+            clone.style.left = '-9999px';
+
+            clone.style.boxSizing = 'box-sizing';
+            document.body.appendChild(clone);
+            item.originalHeight = clone.scrollHeight;
+            document.body.removeChild(clone);
+
+        } else {
+            // Сохраняем полную высоту контента
+            item.originalHeight = content.scrollHeight; // Вся высота содержимого
+        }
+
+        // Если есть кастомный padding - используем его
+        const paddingTop = customPadding || computedStyle.paddingTop;
+        const paddingRight = customPadding || computedStyle.paddingRight;
+        const paddingBottom = customPadding || computedStyle.paddingBottom;
+        const paddingLeft = customPadding || computedStyle.paddingLeft;
 
         // Сохраняем стили которые влияют на высоту
         item.originalStyles = {
-            paddingTop: computedStyle.paddingTop,
-            paddingBottom: computedStyle.paddingBottom,
+            paddingTop: paddingTop,
+            paddingRight: paddingRight,
+            paddingBottom: paddingBottom,
+            paddingLeft: paddingLeft,
             boxSizing: computedStyle.boxSizing
         };
 
         console.log('Accordion: сохранены размеры для', item.id, {
             height: item.originalHeight,
-            style: item.originalStyles
+            style: item.originalStyles,
+            customPadding: customPadding ? 'да' : 'нет'
         });
     }
 
@@ -189,7 +218,7 @@ export default class Accordion {
      * @private
      */
     _setInitialHeight(item) {
-        const { content, isOpen } = item;
+        const { content, isOpen, originalStyles } = item;
 
         // Устанавливаем CSS transition для плавности
         content.style.transition = `
@@ -198,13 +227,15 @@ export default class Accordion {
             padding-bottom ${this.options.duration}ms ${this.options.easing}
         `;
         content.style.overflow = 'hidden'; // Скрываем то, что выходит за пределы
-        content.style.boxSizing = `${item.originalStyles.boxSizing}`;
+        content.style.paddingRight = originalStyles.paddingRight;
+        content.style.paddingLeft = originalStyles.paddingLeft;
+        content.style.boxSizing = originalStyles.boxSizing;
 
         if (isOpen) {
             // Если открыт - устанавливаем полную высоту
             content.style.height = `${item.originalHeight}px`;
-            content.style.paddingTop = `${item.originalStyles.paddingTop}`;
-            content.style.paddingBottom = `${item.originalStyles.paddingBottom}`;
+            content.style.paddingTop = originalStyles.paddingTop;
+            content.style.paddingBottom = originalStyles.paddingBottom;
         } else {
             // Если закрыт - высота 0
             content.style.height = '0';

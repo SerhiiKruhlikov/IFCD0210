@@ -82,7 +82,7 @@ footer {
 .accordion__title,
 .accordion__content {
     overflow: hidden;
-    padding: 1rem;
+    /*padding: 1rem;*/
 }
 .accordion__title {
     font-family: inherit;
@@ -92,7 +92,7 @@ footer {
     cursor: pointer;
     border: none;
     background-color: #fff;
-    /*padding: 1rem;*/
+    padding: 1rem;
 }
 .accordion__content {
     position: relative;
