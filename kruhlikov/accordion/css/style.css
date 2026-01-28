@@ -82,7 +82,6 @@ footer {
 .accordion__title,
 .accordion__content {
     overflow: hidden;
-    /*padding: 1rem;*/
 }
 .accordion__title {
     font-family: inherit;
@@ -96,6 +95,8 @@ footer {
 }
 .accordion__content {
     position: relative;
+    height: 0;
+    padding: 0;
 }
 .accordion__content::after {
     content: "";
@@ -107,5 +108,6 @@ footer {
     height: 1px;
 }
 .accordion__item.is-active .accordion__content {
-    /*padding: 1rem;*/
+    height: auto;
+    padding: 1rem;
 }

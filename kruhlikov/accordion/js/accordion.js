@@ -70,6 +70,9 @@ export default class Accordion {
     _setupItem(item) {
         console.log('Accordion: настраиваю элемент', item);
 
+        // Predefine padding fo is-active
+        // if (item.querySelector('.is-active [data-accordion-padding]'))
+
         const title = item.querySelector('[data-accordion-title]');
         const content = item.querySelector('[data-accordion-content]');
 
@@ -165,11 +168,13 @@ export default class Accordion {
      * @private
      */
     _saveOriginalDimensions(item) {
+        console.log(item);
         const { content, customPadding, isOpen } = item;
         const computedStyle = window.getComputedStyle(content);
 
-        if (customPadding) {
+        if (customPadding && !isOpen) {
             const clone = content.cloneNode(true);
+
             clone.style.height = 'auto';
             clone.style.paddingTop = customPadding;
             clone.style.paddingLeft = customPadding;
@@ -179,12 +184,11 @@ export default class Accordion {
             clone.style.position = 'absolute';
             clone.style.top = '-9999px';
             clone.style.left = '-9999px';
-
             clone.style.boxSizing = 'box-sizing';
+
             document.body.appendChild(clone);
             item.originalHeight = clone.scrollHeight;
             document.body.removeChild(clone);
-
         } else {
             // Сохраняем полную высоту контента
             item.originalHeight = content.scrollHeight; // Вся высота содержимого
