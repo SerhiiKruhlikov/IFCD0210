@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de tareas</title>
+</head>
+<body>
+
+  <h1>Formulario</h1>
+
+  {% if datos %}
+  <p>Los datos han guardado!</p>
+  {% endif %}
+
+  <form action="{{url_for('index')}}" method="post">
+      {% if paises %}
+      <fieldset>
+          <label for="pais">Paises</label>
+          <select name="pais" id="pais">
+              <option readonly value="0">--- Selecciones ---</option>
+              {% for pais in paises %}
+                <option value="{{ pais }}"{% if datos.get("pais") == pais %} selected{% endif %}>{{ pais }}</option>
+              {% endfor %}
+          </select>
+      </fieldset>
+      <br>
+      {% endif %}
+      {% if generos %}
+      <fieldset>
+          <legend>Géneros:</legend>
+          {% for genero in generos %}
+          <label><input type="radio" name="genero" value="{{ genero }}"{% if datos.get("genero") == genero %} checked{% endif %} />{{ genero }}</label>
+          {% endfor %}
+      </fieldset>
+      <br>
+      {% endif %}
+      {% if hobbies %}
+      <fieldset>
+          <legend>Hobbies:</legend>
+          {% for hobby in hobbies %}
+          <label><input type="checkbox" name="hobbies" value="{{ hobby }}"{% if hobby in datos.get("hobbies", []) %} checked{% endif %} />{{ hobby }}</label>
+          {% endfor %}
+      </fieldset>
+      <br>
+      {% endif %}
+      <button type="submit">Guardar</button>
+  </form>
+
+    <button onclick="location.href='{{url_for("carga")}}'">carga</button>
+
+</body>
+</html>

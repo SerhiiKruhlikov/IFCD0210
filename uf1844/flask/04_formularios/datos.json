@@ -1,0 +1,10 @@
+{
+    "pais": "Espana",
+    "genero": "Hombre",
+    "hobbies": [
+        "Leer",
+        "Deporte",
+        "Musica",
+        "Video juegos"
+    ]
+}

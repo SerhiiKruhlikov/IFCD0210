@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de tareas</title>
+</head>
+<body>
+
+  <h1>Lista de tareas</h1>
+
+  <form action="/" method="post">
+      <input type="text" name="description" placeholder="Nueva tarea" required>
+      <button type="submit">Agregar</button>
+  </form>
+
+  {% if tareas %}
+  <ul>
+    {% for tarea in tareas %}
+      <li>
+          Tarea nº: {{ tarea.id }}<br>
+          Description: {{ tarea.description }}<br>
+          Fecha alta: {{ tarea.fecha_alta }}<br>
+          Fecha completada: {% if tarea.fecha_completa %}{{ tarea.fecha_completa }}{% else %}NO{% endif %} <a href="{{url_for('completar_tarea', id_tarea=tarea.id)}}">Completo</a><br>
+          <a href="{{url_for('borrar_tarea', id_tarea=tarea.id)}}">Eliminar</a>
+          <a href="{{url_for('cambiar_tarea', id_tarea=tarea.id)}}">Cambiar</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+</body>
+</html>

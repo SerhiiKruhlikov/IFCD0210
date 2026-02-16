@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de tareas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<h1>Productos</h1>
+
+<form action="{{url_for('index')}}" method="GET">
+    <label for="products">Products</label>
+    <select id="products" name="products" onchange="this.form.submit()">
+        <option value="-1">--- Create product ---</option>
+        {% for product in products %}
+        <option value="{{ product.id }}"{% if current_product and product.id == current_product.id %} selected{% endif %}>{{ product.name }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+
+<h2>{% if current_product %}Editar Producto{% else %}Nuevo Producto{% endif %}</h2>
+
+<form action="{% if current_product %}{{ url_for('update', product_id=current_product.id) }}{% else %}{{ url_for('create') }}{% endif %}" method="POST">
+    <label for="product_name">Product
+        <input id="product_name" type="text" name="name"{% if current_product %} value="{{ current_product.name}}"{% endif %} />
+    </label>
+    <label for="product_price">Price
+        <input id="product_price" type="text" name="price"{% if current_product %} value="{{ current_product.price}}"{% endif %} />
+    </label>
+    <label for="product_category">Category
+        <select id="product_category" name="category">
+            <option value="-1">--- Category ---</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}"{% if current_product and category.id == current_product.category_id%} selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <button type="submit">{% if current_product %}Actualizar{% else %}Create{% endif %} product</button>
+</form>
+
+{% if current_product %}
+    <form action="{% if current_product %}{{ url_for('delete', product_id=current_product.id) }}{% endif %}">
+        <button type="submit" onsubmit="return confirm('¿Estas seguro?')">{% if current_product %}Delete{% endif %} product</button>
+    </form>
+{% endif %}
+
+</body>
+</html>

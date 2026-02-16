@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "description": "Uno -1",
+        "fecha_alta": "2026-02-10 17:20:05",
+        "fecha_completa": "2026-02-10 19:09:44"
+    },
+    {
+        "id": 2,
+        "description": "dos",
+        "fecha_alta": "2026-02-10 19:08:22",
+        "fecha_completa": "2026-02-10 19:09:45"
+    },
+    {
+        "id": 3,
+        "description": "tres",
+        "fecha_alta": "2026-02-10 19:08:24",
+        "fecha_completa": "2026-02-10 19:09:46"
+    },
+    {
+        "id": 4,
+        "description": "сuatro",
+        "fecha_alta": "2026-02-10 19:08:28",
+        "fecha_completa": null
+    }
+]

@@ -1,0 +1,44 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "name": "Ropa"
+        },
+        {
+            "id": 2,
+            "name": "Laptop"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "name": "Camiseta",
+            "price": 10.0,
+            "category_id": 1
+        },
+        {
+            "id": 2,
+            "name": "Gora",
+            "price": 12.99,
+            "category_id": 1
+        },
+        {
+            "id": 3,
+            "name": "Ordenador",
+            "price": 600.0,
+            "category_id": 2
+        },
+        {
+            "id": 4,
+            "name": "Pantalones",
+            "price": 200.0,
+            "category_id": 1
+        },
+        {
+            "id": 5,
+            "name": "Laptop",
+            "price": 230.0,
+            "category_id": 2
+        }
+    ]
+}
