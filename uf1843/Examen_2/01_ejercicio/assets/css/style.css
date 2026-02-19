@@ -1,3 +1,37 @@
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url(/assets/fonts/glyphicons-halflings-regular.eot);
+    src: url(/assets/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),url(/assets/fonts/glyphicons-halflings-regular.woff2) format('woff2'),url(/assets/fonts/glyphicons-halflings-regular.woff) format('woff'),url(/assets/fonts/glyphicons-halflings-regular.ttf) format('truetype'),url(/assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
+}
+.glyphicon {
+    font-family: 'Glyphicons Halflings';
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: .25rem;
+}
+
+.glyphicon-fire:before {
+    content: "\e104";
+}
+
+.glyphicon-cloud-upload:before {
+    content: "\e198";
+}
+
+.glyphicon-leaf:before {
+    content: "\e103";
+}
+
+.glyphicon-equalizer:before {
+    content: "\e210";
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -95,7 +129,8 @@ img {
 }
 
 .navbar-header,
-.navbar-menu {
+.navbar-menu,
+.navbar-search {
     margin: 0 -.9375rem;
 }
 
@@ -122,6 +157,18 @@ img {
     color: white;
 }
 
+.navbar a.navbar-brand {
+    align-items: center;
+    font-size: 1.125rem;
+    line-height: 1;
+    font-weight: 500;
+}
+
+.navbar-panel {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 .navbar-menu {
     list-style: none;
     display: flex;
@@ -130,7 +177,26 @@ img {
 
 .navbar-menu .navbar-menu-item {
     display: flex;
+    align-items: center;
+}
 
+.navbar-search {
+    display: flex;
+    flex-direction: row;
+    padding: .625rem .9375rem;
+    border-top: .5px solid dimgray;
+    gap: .9375rem;
+}
+
+.navbar-search input {
+    font-size: .875rem;
+    flex: 1 0 auto;
+    line-height: 1.5;
+    padding: 0 .5rem;
+}
+.navbar-search button {
+    line-height: 1.5;
+    padding: .25rem .5rem;
 }
 
 .navbar-menu .is-active {
@@ -254,7 +320,7 @@ img {
 }
 
 .callout .list-item {
-    padding: 1.5rem;
+    padding: .9375rem;
 }
 
 footer ul {
@@ -296,6 +362,12 @@ footer a:hover {
         flex-direction: row;
     }
 
+    .navbar-panel {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     .navbar-header,
     .navbar-menu {
         margin: 0;
@@ -303,6 +375,10 @@ footer a:hover {
 
     .navbar-menu {
         flex-direction: row;
+    }
+
+    .navbar-search {
+        border-top: none;
     }
 
     .navbar-toggle {
