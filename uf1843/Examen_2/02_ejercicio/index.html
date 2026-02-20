@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Parte práctica – Examen</title>
+	<style>
+		h2 {
+			margin: 0;
+		}
+		.contenedor {
+			display: grid;
+			grid-template-columns: repeat(12, 1fr);
+            border-right: 1px solid #8a8a8a;
+            border-bottom: 1px solid #8a8a8a;
+		}
+		.col-1 {
+			grid-column: 1 / span 1;
+		}
+		.col-11 {
+			grid-column: 2 / span 11;
+		}
+		.col-2-11 {
+			grid-column: 2 / span 11;
+		}
+		.fila-4 {
+			grid-row: 1 / span 4;
+		}
+		.col {
+			border-top: 1px solid #8a8a8a;
+            border-left: 1px solid #8a8a8a;
+			padding: 1rem;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Parte práctica – Examen</h1>
+	</header>
+	<main>
+		<section class="contenedor">
+			<div class="col-1 fila-4 col">
+				<h2>2</h2>
+			</div>
+			<div class="col-11 col">
+				<h3>JAVASCRIPT:</h3>
+				<p><b>Problema</b>: Control de consumo eléctrico diario</p>
+				<p>Una empresa registra el consumo eléctrico de un edificio durante una semana.</p>
+				<p>Los datos se almacenan en un array donde cada número representa los kWh consumidos en un día.</p>
+				<p>Implementa una función llamada analizarConsumo(consumos) que reciba un array de números y devuelva un array con la siguiente información, en este orden:</p>
+				<ul style="list-style-type: lower-latin;">
+					<li>Número de días con consumo alto (más de 30 kWh)</li>
+					<li>Consumo total de la semana</li>
+					<li>Día con menor consumo registrado</li>
+				</ul>
+				<p>Nota: El valor del punto 3 debe ser el consumo mínimo, no la posición.</p>
+			</div>
+			<div class="col-2-11 col">
+				<h2>Respuesta</h2>
+			</div>
+			<div class="col-2-11 col">
+				<label for="maximo">Indique el umbral de consumo alto (superior a...), kWh:</label>
+				<input type="text" name="maximo" id="maximo" value="30"> <br><br>
+				<label for="consumo">Indique el consumo por día, separado por comas:</label>
+				<input type="text" name="consumo" id="consumo" value="28,35,22,40,31,18,25">
+				<button onclick="analizarConsumo('maximo', 'consumo', 'resultado1');">Ejecutar</button>
+				<script type="text/javascript">
+					function analizarConsumo(id_max, id_consumo, id_resultado) {
+                        const maximo = parseInt(document.getElementById(id_max).value);
+                        const consumo = document.getElementById(id_consumo).value;
+                        const resultado = document.getElementById(id_resultado);
+
+                        if (consumo) {
+                            const consumoArray = cadenaArray(consumo);
+
+                            const diasAltoConsumo = calcularAlto(consumoArray, maximo);
+                            const consumoTotal = calcularTotal(consumoArray);
+                            const consumoMinimo = calcularMinimo(consumoArray);
+
+							resultadoHtml = `<p><b>Salida</b>: [${diasAltoConsumo.length}, ${consumoTotal}, ${consumoMinimo}]</p>`;
+                            resultadoHtml += `<p><b>Explicación</b>:</p>`;
+                            resultadoHtml += `<p>Días con consumo alto → ${diasAltoConsumo.toString(', ')} → ${diasAltoConsumo.length} días</p>`;
+                            resultadoHtml += `<p>Consumo total → ${consumoTotal} kWh</p>`;
+                            resultadoHtml += `<p>Consumo mínimo → ${consumoMinimo} kWh</p>`;
+
+	                        resultado.innerHTML = resultadoHtml;
+
+						}
+                        else
+                            resultado.innerText = 'Indique los valores!';
+                    }
+
+                    function cadenaArray(cadena) {
+                        let resultado = [];
+
+                        if (cadena.toString())
+                            for (const arrayElement of cadena.split(',')) {
+                                let n = parseInt(arrayElement);
+                                if (!isNaN(n)) resultado.push(n);
+                            }
+
+                        return resultado;
+                    }
+
+                    function calcularTotal(array) {
+                        if (!esArray(array)) return 0;
+
+                        return array.reduce((suma, numero) => suma + numero, 0);
+                    }
+
+                    function calcularMinimo(array) {
+                        if (!esArray(array)) return 0;
+
+                        return array.reduce((min, numero) => numero < min ? numero : min);
+                    }
+
+                    function calcularAlto(array, max) {
+                        if (!esArray(array)) return 0;
+
+                        return array.reduce((array, numero) => {
+                            if (numero > max) array.push(numero);
+                            return array;
+                        }, []);
+					}
+
+                    function esArray(dato) {
+                        return Array.isArray(dato);
+                    }
+
+				</script>
+			</div>
+			<div class="col-2-11 col">
+				<div id="resultado1">--- Resultado aquí ---</div>
+			</div>
+		</section>
+		<section class="contenedor">
+			<div class="col-1 fila-4 col">
+				<h2>3</h2>
+			</div>
+			<div class="col-11 col">
+				<h3>USABILIDAD Y ACCESIBILIDAD:</h3>
+				<p>Mejora de accesibilidad en HTML.</p>
+				<p>Objetivo: Aplicar prácticas básicas de accesibilidad técnica.</p>
+				<p>Código original:</p>
+				<div id="codigo1" style="background-color: #eee; border: 1px dashed gray; padding: 1rem; white-space: pre-wrap;"></div>
+				<script>
+                    let code = '';
+                    code += `<img src="grafico.png">\n`;
+                    code += `<button>X</button>`;
+                    document.getElementById('codigo1').textContent = code;
+				</script>
+				<p><b>Tareas</b>:</p>
+				<ul style="list-style-type: lower-latin;">
+					<li>Añadir texto alternativo a la imagen</li>
+					<li>Hacer el botón accesible para lector de pantalla</li>
+					<li>Mejorar semántica si es necesario</li>
+				</ul>
+				<p><b>Resultado esperado: Código HTML accesible.</b></p>
+			</div>
+			<div class="col-2-11 col">
+				<h2>Respuesta</h2>
+			</div>
+			<div class="col-2-11 col">
+				<div id="resultado2" style="background-color: #e5ffe5; border: 1px dashed lightgreen; padding: 1rem; white-space: pre-wrap;"></div>
+				<script>
+                    let resultado = '';
+                    resultado += `<figure>\n`;
+                    resultado += `\t<img src="grafico.png" alt="Gráfico de resultados anuales">\n`;
+                    resultado += `\t<figcaption>Evolución de ventas 2025-2026</figcaption>\n`;
+                    resultado += `</figure>\n`;
+                    resultado += `<button aria-label="Cerrar">X</button>`;
+                    document.getElementById('resultado2').textContent = resultado;
+				</script>
+				<br>
+				<h3>Código mejorado (accesible):</h3>
+				<figure>
+					<img src="grafico.png" alt="Gráfico de resultados anuales">
+					<figcaption>Evolución de ventas 2025-2026</figcaption>
+				</figure>
+
+				<button aria-label="Cerrar">X</button>
+			</div>
+		</section>
+	</main>
+</body>
+</html>
