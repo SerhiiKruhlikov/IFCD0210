@@ -1,17 +1,15 @@
 export default class Navbar {
-
     static defaultOptions = {
         duration: 300,
         easing: 'ease-in-out',
-        onlyOneOpen: true,
-        startActive: true
+        startActive: false
     };
 
     constructor(element, options = {}) {
         this.element = this._getElement(element);
 
         if (!this.element) {
-            console.warn('Navbar: элемент не найден', element);
+            // console.warn('Navbar: elemento no encontrado', element);
             return;
         }
 
@@ -20,17 +18,13 @@ export default class Navbar {
             ...options
         };
 
-        this.items = [];
-
-        this.navbarId = `navbar-${Math.random().toString(36).substring(2, 9)}`;
-
-        this.panel = '';
-
-        this.toggle = ''
-
+        this.toggler = null;
+        this.panel = null;
+        this.isOpen = false;
         this.initialized = false;
-
-        console.log('Navbar: создан экземпляр', this);
+        this.isAnimating = false;
+        this.resizeObserver = null;
+        this.boundHandleResize = this._handleResize.bind(this);
     }
 
     _getElement(element) {
@@ -40,182 +34,230 @@ export default class Navbar {
         return element;
     }
 
+    _isTogglerVisible() {
+        if (!this.toggler) return false;
+        const style = window.getComputedStyle(this.toggler);
+        return style.display !== 'none';
+    }
+
     init() {
-        // Если уже инициализирован - выходим
-        if (this.initialized) {
-            console.warn('Navbar: уже инициализирован');
+        if (this.initialized) return;
+        if (!this.element) return;
+
+        const toggler = this.element.querySelector('[data-navbar-toggle]');
+        const panel = this.element.querySelector('[data-navbar-panel]');
+
+        if (!toggler || !panel) {
+            // console.warn('Navbar: no se encontraron los elementos necesarios');
             return;
         }
 
-        // Если элемент не найден - выходим
-        if (!this.element) {
-            console.warn('Navbar: элемент для инициализации не найден');
-            return;
-        }
+        this.toggler = toggler;
+        this.panel = panel;
 
-        console.log('Navbar: начинаю инициализацию...');
-        const navbarToggle = this.element.querySelector('[data-navbar-toggle]');
-        const navbarPanel = this.element.querySelector('[data-navbar-panel]');
-
-        if (navbarToggle.length === 0) {
-            console.warn('Navbar: не найден элемент data-navbar-toggle');
-            this.initialized = false;
-            return;
-        }
-
-        if (navbarPanel.length === 0) {
-            console.warn('Navbar: не найден элемент data-navbar-panel');
-            this.initialized = false;
-            return;
-        }
-
-        console.log(`Navbar: найден ${navbarToggle.length} элемент`);
-        this._setupToggle(navbarToggle);
-
-        console.log(`Navbar: найден ${navbarPanel.length} элемент`);
-        this._setupPanel(navbarPanel);
-
-        this.initialized = true;
-        console.log('Navbar: инициализация завершена');
+        this._watchVisibility();
+        this._applyVisibilityState();
     }
 
-    _setupToggle(element) {
-        console.log('Navbar: настраиваю переключатель', element);
-
-        const elementId = `navbar-${Math.random().toString(36).substring(2, 9)}`;
-
-        const elementData = {
-            element: element,
-            toggle: true,
-            panel: false,
-            isOpen: element.classList.contains('is-active'),
-            id: this.navbarId
-        }
-
-        this._setupAriaAttributes(elementData);
-
-        this._addClickHandler(elementData);
-
-        this.toggle = elementData;
-
-        console.log('Navbar: переключатель настроен', elementData);
-    }
-
-    _setupPanel(element) {
-        console.log('Navbar: настраиваю панель', element);
-
-        const elementId = `navbar-${Math.random().toString(36).substring(2, 9)}`;
-
-        const elementData = {
-            element: element,
-            toggle: false,
-            panel: true,
-            isOpen: element.classList.contains('is-active'),
-            id: this.navbarId
-        }
-
-        this._setupAriaAttributes(elementData);
-
-        this.panel = elementData;
-
-        console.log('Navbar: элемент настроен', elementData);
-    }
-
-    _setupAriaAttributes(data) {
-        const { element, toggle, panel, isOpen, id } = data;
-
-        if (toggle) {
-            element.setAttribute('id', `${id}-toggle`);
-            element.setAttribute('aria-expanded', isOpen.toString());
-            element.setAttribute('aria-controls', `${id}-panel`);
-            element.setAttribute('role', 'button');
-        }
-
-        if (panel) {
-            element.setAttribute('id', `${id}-panel`);
-            element.setAttribute('aria-labelledby', `${id}-toggle`);
-            element.setAttribute('aria-hidden', (!isOpen).toString());
-            element.setAttribute('role', 'region');
-        }
-
-        console.log('Navbar: ARIA атрибуты установлены для', element);
-    }
-
-    _addClickHandler(item) {
-        const { element, toggle } = item;
-
-        console.log(element);
-        console.log(item);
-
-        const self = this;
-
-        const clickHandler = function(event) {
-            event.preventDefault();
-            console.log('Navbar: клик по', item.id);
-
-            // Переключаем состояние этого элемента
-            self._toggleItem(element);
-        };
-
-        item.clickHandler = clickHandler;
-
-        element.addEventListener('click', clickHandler);
-
-        element.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                clickHandler(event);
-            }
+    _watchVisibility() {
+        this.resizeObserver = new ResizeObserver(() => {
+            this._applyVisibilityState();
         });
 
-        console.log('Navbar: обработчик добавлен для', item.id);
+        this.resizeObserver.observe(this.toggler);
+        window.addEventListener('resize', this.boundHandleResize);
     }
 
-    open(element) {
-        if (!this.initialized) {
-            console.warn('Navbar: не инициализирован');
-            return;
-        }
+    _applyVisibilityState() {
+        const isVisible = this._isTogglerVisible();
 
-        if (element < 0 || element >= this.panel.length) {
-            console.warn('Navbar: неверный элемент', element);
-            return;
-        }
-    }
-
-    _toggleItem(item) {
-        console.log(item);
-        console.log('Navbar: переключаю', item.id, 'текущее состояние:', item.isOpen ? 'открыт' : 'закрыт');
-
-        if (item.isOpen) {
-            this._closeItem(item);
+        if (!isVisible) {
+            // console.log('Navbar: botón oculto, el panel siempre está visible');
+            this._enableDesktopMode();
         } else {
-            this._openItem(item);
+            // console.log('Navbar: botón visible, activando modo móvil');
+            this._enableMobileMode();
+        }
+    }
+
+    _enableDesktopMode() {
+        this.panel.style.height = '';
+        this.panel.style.overflow = '';
+        this.panel.style.transition = '';
+
+        this.panel.classList.remove('is-active');
+        this.toggler.classList.remove('is-active');
+
+        this.panel.style.display = '';
+
+        if (this.initialized) {
+            this._removeEventListeners();
+            this.initialized = false;
         }
 
-        item.isOpen = !item.isOpen;
-
-        this._updateItemClasses(item);
-
-        this._updateAriaAttributes(item);
-
-        console.log('Accordion: новое состояние:', item.isOpen ? 'открыт' : 'закрыт');
+        // console.log('Navbar: modo escritorio activado');
     }
 
-    _openItem(item) {
-        console.log(item);
+    _enableMobileMode() {
+        this.panel.style.display = '';
 
-        console.log('Navbar: открываю', item.id);
-
-        content.style.height = 'auto';
+        if (!this.initialized) {
+            this._initialize();
+        }
     }
 
-    _closeItem(item) {
-        console.log(item);
+    _initialize() {
+        this._preparePanel();
 
-        console.log('Navbar: закрываю', item.id);
+        this.isOpen = this.options.startActive;
 
-        content.style.height = '0';
+        if (this.isOpen) {
+            this.toggler.classList.add('is-active');
+            this.panel.classList.add('is-active');
+            this.panel.style.height = 'auto';
+        } else {
+            this.panel.style.height = '0';
+        }
+
+        this._setupAriaAttributes();
+        this._addEventListeners();
+
+        this.initialized = true;
+        // console.log('Navbar: modo móvil inicializado');
+    }
+
+    _handleResize() {
+        this._applyVisibilityState();
+    }
+
+    _preparePanel() {
+        this.panel.style.overflow = 'hidden';
+        this.panel.style.transition = `height ${this.options.duration}ms ${this.options.easing}`;
+        this.panel.style.display = '';
+    }
+
+    _setupAriaAttributes() {
+        const navbarId = this.element.id || `navbar-${Math.random().toString(36).substring(2, 9)}`;
+        this.element.id = navbarId;
+
+        this.toggler.setAttribute('aria-expanded', this.isOpen.toString());
+        this.toggler.setAttribute('aria-controls', `${navbarId}-panel`);
+        this.toggler.setAttribute('role', 'button');
+
+        this.panel.id = `${navbarId}-panel`;
+        this.panel.setAttribute('aria-labelledby', this.toggler.id || `${navbarId}-toggle`);
+        this.panel.setAttribute('aria-hidden', (!this.isOpen).toString());
+        this.panel.setAttribute('role', 'region');
+
+        if (!this.toggler.id) {
+            this.toggler.id = `${navbarId}-toggle`;
+        }
+    }
+
+    _addEventListeners() {
+        this.boundToggle = (e) => {
+            e.preventDefault();
+            this.toggle();
+        };
+
+        this.boundKeydown = (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.toggle();
+            }
+        };
+
+        this.boundTransitionEnd = () => {
+            this.isAnimating = false;
+            if (this.isOpen) {
+                this.panel.style.height = 'auto';
+            }
+        };
+
+        this.toggler.addEventListener('click', this.boundToggle);
+        this.toggler.addEventListener('keydown', this.boundKeydown);
+        this.panel.addEventListener('transitionend', this.boundTransitionEnd);
+    }
+
+    _removeEventListeners() {
+        if (this.boundToggle) {
+            this.toggler.removeEventListener('click', this.boundToggle);
+        }
+        if (this.boundKeydown) {
+            this.toggler.removeEventListener('keydown', this.boundKeydown);
+        }
+        if (this.boundTransitionEnd) {
+            this.panel.removeEventListener('transitionend', this.boundTransitionEnd);
+        }
+    }
+
+    toggle() {
+        if (this.isAnimating || !this.initialized) return;
+        this.isAnimating = true;
+
+        if (this.isOpen) {
+            this.close();
+        } else {
+            this.open();
+        }
+    }
+
+    open() {
+        if (this.isOpen) {
+            this.isAnimating = false;
+            return;
+        }
+
+        const startHeight = '0';
+
+        this.panel.style.height = 'auto';
+        const endHeight = this.panel.scrollHeight + 'px';
+
+        this.panel.style.height = startHeight;
+
+        setTimeout(() => {
+            this.panel.style.height = endHeight;
+        }, 10);
+
+        this.isOpen = true;
+        this._updateState();
+        // console.log('Navbar: panel abriéndose');
+    }
+
+    close() {
+        if (!this.isOpen) {
+            this.isAnimating = false;
+            return;
+        }
+
+        if (this.panel.style.height === 'auto') {
+            const currentHeight = this.panel.scrollHeight + 'px';
+            this.panel.style.height = currentHeight;
+        }
+
+        setTimeout(() => {
+            this.panel.style.height = '0';
+        }, 10);
+
+        this.isOpen = false;
+        this._updateState();
+        // console.log('Navbar: panel cerrándose');
+    }
+
+    _updateState() {
+        this.toggler.classList.toggle('is-active', this.isOpen);
+        this.panel.classList.toggle('is-active', this.isOpen);
+
+        this.toggler.setAttribute('aria-expanded', this.isOpen.toString());
+        this.panel.setAttribute('aria-hidden', (!this.isOpen).toString());
+    }
+
+    destroy() {
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        }
+        window.removeEventListener('resize', this.boundHandleResize);
+        this._removeEventListeners();
     }
 }
 
