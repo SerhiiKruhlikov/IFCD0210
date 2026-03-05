@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h4 class="mb-4">
+            {% if persona and persona.id %}
+                Editar Persona
+            {% else %}
+                Nueva Persona
+            {% endif %}
+        </h4>
+
+        <!-- ================= FOTO EN EDICIÓN ================= -->
+        {% if persona and persona.foto %}
+        <div class="mb-4 d-flex align-items-start">
+            <div class="me-4">
+                <img src="/fotos/{{ persona.foto }}" 
+                     class="edit-photo-preview">
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label">Nombre</label>
+                <div class="col-md-9">
+                    <input type="text" name="nombre" class="form-control"
+                           value="{{ persona.nombre if persona else '' }}" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label">Primer Apellido</label>
+                <div class="col-md-9">
+                    <input type="text" name="apellido1" class="form-control"
+                           value="{{ persona.apellido1 if persona else '' }}" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label">Segundo Apellido</label>
+                <div class="col-md-9">
+                    <input type="text" name="apellido2" class="form-control"
+                           value="{{ persona.apellido2 if persona else '' }}">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label">DNI</label>
+                <div class="col-md-9">
+                    <input type="text" name="dni" class="form-control"
+                           value="{{ persona.dni if persona else '' }}" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label">Fecha Nacimiento</label>
+                <div class="col-md-9">
+                    <input type="date" name="fecha_nacimiento" class="form-control"
+                           value="{{ persona.fecha_nacimiento if persona else '' }}">
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <label class="col-md-3 col-form-label">Cambiar Foto</label>
+                <div class="col-md-9">
+                    <input type="file" name="foto" class="form-control">
+                    <small class="text-muted">
+                        Si seleccionas una nueva imagen se reemplazará la actual.
+                    </small>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                    Cancelar
+                </a>
+                <button type="submit" class="btn btn-success">
+                    Guardar
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

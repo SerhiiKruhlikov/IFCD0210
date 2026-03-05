@@ -1,0 +1,48 @@
+
+    {%extends 'base.html'%}
+
+    {% block title %}CRUD productos{%endblock%}
+
+    {%block content%}
+
+    <h1>Listado de productos</h1>
+    <p>
+        <a href="{{url_for('crear')}}">Nuevo producto</a>
+    </p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Precio</th>            
+            <th>Cantidad</th>
+            <th>Fecha caducidad</th>
+            <th>Acciones</th>
+        </tr>
+        {%for p in prods %}
+        <tr>
+            <td>{{p.id}}</td>
+            <td>{{p.codigo}}</td>
+            <td>{{p.nombre}}</td>
+            <td>{{p.precio}}</td>
+            <td>{{p.cantidad}}</td>
+            <td>{{p.fecha_caducidad}}</td>
+            <td>
+                <a href="{{url_for('editar',id=p.id)}}">Editar</a>
+                
+                <form action="{{url_for('borrar',id=p.id)}}" method="post"
+                onsubmit="return confirm('¿Borrar este producto?')">
+                    <button type="submit">Borrar</button>
+                </form>
+            </td>
+        </tr>
+
+        {%endfor%}
+    </table>
+    <br><br>
+    <h2>Subir archivo</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="">
+        <input type="submit" value="Subir">
+    </form>
+{%endblock%}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card shadow-sm">
+    <div class="row g-0">
+        <div class="col-md-4 text-center p-4">
+            {% if persona.foto %}
+                <img src="/fotos/{{ persona.foto }}" class="img-fluid rounded">
+            {% else %}
+                <img src="https://via.placeholder.com/300" class="img-fluid rounded">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h4>{{ persona.nombre }} {{ persona.apellido1 }} {{ persona.apellido2 }}</h4>
+                <hr>
+                <p><strong>DNI:</strong> {{ persona.dni }}</p>
+                <p><strong>Fecha nacimiento:</strong> {{ persona.fecha_nacimiento }}</p>
+
+                <div class="mt-4">
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver</a>
+                    <a href="{{ url_for('editar', id=persona.id) }}" class="btn btn-warning">Editar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

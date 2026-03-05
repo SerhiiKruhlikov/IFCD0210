@@ -1,0 +1,15 @@
+services:
+  example-db:
+    image: mysql:latest
+    restart: always
+    volumes:
+      - ./mysql_data:/var/lib/mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: password_que_quieras_para_root
+      MYSQL_DATABASE: jardeneria
+      MYSQL_USER: workuser
+      MYSQL_PASSWORD: password_que_quieras
+    ports:
+      - 3306:3306
+    expose:
+      - '3306'

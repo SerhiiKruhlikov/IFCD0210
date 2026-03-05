@@ -60,27 +60,59 @@ t.width(2)
 
 
 # Упражнение №9: правильные многоугольники
-offset = 20
-side_length = 40
-R = side_length * math.sqrt(3) / 3
+# offset = 20
+# side_length = 40
+# R = side_length * math.sqrt(3) / 3
 
-for n in range(3, 13):
-    start_angle = 90 + 360 / n / 2
+# for n in range(3, 13):
+#     start_angle = 90 + 360 / n / 2
+#
+#     if n > 3:
+#         R += offset
+#         side_length = 2 * R * math.sin(math.pi / n)
+#         t.forward(offset)
+#     elif n == 3:
+#         t.forward(R)
+#
+#     t.left(start_angle)
+#
+#     for i in range(n):
+#         t.forward(side_length)
+#         t.left(360 / n)
+#
+#     t.left(-start_angle)
 
-    if n > 3:
-        R += offset
-        side_length = 2 * R * math.sin(math.pi / n)
-        t.forward(offset)
-    elif n == 3:
-        t.forward(R)
+R = 40
+angle = 10
 
-    t.left(start_angle)
+t.goto(0, 0)
 
-    for i in range(n):
-        t.forward(side_length)
-        t.left(360 / n)
+for i in range(1, 3):
+    for _ in range(72):
+        if i == 1:
+            t.left(5)
+        elif i == 2:
+            t.right(5)
+        t.forward((angle * math.pi / 180) * R)
 
-    t.left(-start_angle)
+t.left(60)
 
+for i in range(1, 3):
+    for _ in range(72):
+        if i == 1:
+            t.left(5)
+        elif i == 2:
+            t.right(5)
+        t.forward((angle * math.pi / 180) * R)
+
+t.left(60)
+
+for i in range(1, 3):
+    for _ in range(72):
+        if i == 1:
+            t.left(5)
+        elif i == 2:
+            t.right(5)
+        t.forward((angle * math.pi / 180) * R)
 
 turtle.done()

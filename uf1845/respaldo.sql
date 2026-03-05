@@ -1,31 +1,38 @@
 BEGIN TRANSACTION;
 CREATE TABLE clientes (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	nombre TEXT
-, cif TEXT(10), direccion TEXT, telefono TEXT);
-CREATE TABLE facturas (
-	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	numero TEXT,
-	fecha_creacion TEXT NOT NULL,
-	id_cliente INTEGER NOT NULL,
-	CONSTRAINT facturas_clientes_FK FOREIGN KEY (id_cliente) REFERENCES clientes(id)
+	cif TEXT(10),
+	nombre TEXT(40),
+	direccion TEXT(40),
+	telefono TEXT(10)
 );
-CREATE TABLE facturas_productos (
+CREATE TABLE datos_factura (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	id_cliente INTEGER,
+	numero_fra TEXT(10),
+	fecha TEXT(10),
+	emisor TEXT(40),
+	cif TEXT(10),
+	ditreccion TEXT(40),
+	CONSTRAINT datos_factura_clientes_FK FOREIGN KEY (id_cliente) REFERENCES clientes(id)
+);
+CREATE TABLE lineas_factura (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	id_factura INTEGER NOT NULL,
 	id_producto INTEGER NOT NULL,
-	cantidad REAL DEFAULT (0.00) NOT NULL,
-	precio REAL DEFAULT (0.00) NOT NULL,
-	iva REAL DEFAULT (0.00) NOT NULL,
-	total REAL DEFAULT (0.00) NOT NULL,
-	CONSTRAINT facturas_productos_productos_FK FOREIGN KEY (id_producto) REFERENCES productos(id),
-	CONSTRAINT facturas_productos_facturas_FK FOREIGN KEY (id_factura) REFERENCES facturas(id)
+	cantidad INTEGER,
+	precio REAL,
+	iva REAL,
+	total REAL,
+	CONSTRAINT lineas_factura_datos_factura_FK FOREIGN KEY (id_factura) REFERENCES datos_factura(id),
+	CONSTRAINT lineas_factura_productos_FK FOREIGN KEY (id_producto) REFERENCES productos(id)
 );
 CREATE TABLE productos (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	nombre TEXT
-, stock INTEGER DEFAULT (0) NOT NULL, precio REAL DEFAULT (0.00) NOT NULL, iva REAL DEFAULT (0.00) NOT NULL, articulo TEXT NOT NULL);
+	descripcion TEXT(40),
+	stock INTEGER DEFAULT (0) NOT NULL,
+	precio REAL,
+	iva REAL
+);
 DELETE FROM "sqlite_sequence";
-INSERT INTO "sqlite_sequence" VALUES('facturas_productos',0);
-INSERT INTO "sqlite_sequence" VALUES('facturas',0);
 COMMIT;
