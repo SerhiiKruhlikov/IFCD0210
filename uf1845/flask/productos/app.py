@@ -1,7 +1,6 @@
 from flask import Flask,render_template,request,redirect, url_for,send_from_directory
 import sqlite3
 
-
 app = Flask(__name__)
 BD = "productos.sqlite"
 
@@ -10,7 +9,6 @@ def get_conection():
     cnx = sqlite3.connect(BD)
     cnx.row_factory = sqlite3.Row  # Para usar los nombres de columnas
     return cnx
-
 
 def init_bd():
     conn = get_conection()
@@ -28,9 +26,10 @@ def init_bd():
     conn.commit()
     conn.close()
 
-
 # creamos la bd si no existe
 init_bd()
+
+
 
 
 @app.route('/')
@@ -39,7 +38,6 @@ def index():
     productos = conn.execute("select * from producto").fetchall()
     conn.close
     return render_template('index.html', prods=productos)
-
 
 #Editar producto
 @app.route('/editar/<int:id>', methods=['POST','GET'])
@@ -72,7 +70,6 @@ def editar(id):
     conn.close()
     return render_template('editar.html', prod=producto)
 
-
 # Borrar
 @app.post('/borrar/<int:id>')
 def borrar(id):
@@ -83,8 +80,8 @@ def borrar(id):
     conn.close()
     return redirect(url_for('index'))
 
-
 # Insertar
+
 @app.route('/crear', methods=['POST','GET'])
 def crear():
     if request.method == 'POST':
@@ -105,7 +102,6 @@ def crear():
     
     return render_template('crear.html')
 
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
     file = request.files['file']
@@ -113,11 +109,6 @@ def upload_file():
     file_url = url_for('uploaded_file',filename=file.filename, _external=True)
     return f'Archivo subido correctamente <br> Enlace: <a href="{file_url}">{file_url}</a>'
 
-
 @app.route('/archivos/<filename>')
 def uploaded_file(filename):
     return send_from_directory('archivos',filename)
-
-
-if __name__ == "__main__":
-    app.run(debug=True)

@@ -1,0 +1,5 @@
+HOST = 'localhost'
+USER = 'root'
+PORT = '3306'
+PASSWORD = 'password_que_quieras_para_root'
+DATABASE = 'jardineria'
