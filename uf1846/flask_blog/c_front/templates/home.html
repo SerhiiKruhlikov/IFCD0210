@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	{% if posts %}
+		{% for post in posts %}
+			<h2>{{post.titulo}}</h2>
+			<p>{{post.f_creacion}}</p>
+			<p><a href="post/{{post.id}}">Leer</a></p>
+			{{post.contenido|safe}}
+		{% endfor %}
+	{% endif %}
+{% endblock %}

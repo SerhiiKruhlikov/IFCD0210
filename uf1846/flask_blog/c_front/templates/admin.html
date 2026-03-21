@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Panel de administrador</h1>
+	<a href="/admin/create">Nuevo post</a>
+	<a href="/logout">Logout</a>
+	{% if posts %}
+		{% for post in posts %}
+			<h2>{{post.titulo}}</h2>
+			<p>{{post.f_creacion}}</p>
+			{{post.contenido|safe}}
+			<p>
+			<a href="/admin/edit/{{post.id}}">Editar</a>
+			<a href="/admin/delete/{{post.id}}">Eliminar</a>
+			</p>
+		{% endfor %}
+	{% endif %}
+{% endblock %}
