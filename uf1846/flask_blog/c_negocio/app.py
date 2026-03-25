@@ -44,7 +44,12 @@ def delete_post_db(post_id):
 
 
 def validar_post(data):
-    required = ['titulo', 'contenido', 'estado', 'id_autor', ]
+    required = [
+        'titulo',
+        'contenido',
+        'estado',
+        # 'id_autor',
+    ]
 
     for campo in required:
         if not campo in data:
@@ -95,8 +100,8 @@ def get_posts_all():
 def get_post(post_id):
     post = get_post_db(post_id)
 
-    if not post or post['estado'] != 'publicado':
-        return jsonify({'error': 'No encontrado'}), 404
+    # if not post or post['estado'] != 'publicado':
+    #     return jsonify({'error': 'No encontrado'}), 404
 
     return jsonify(post)
 
@@ -110,7 +115,7 @@ def create_post():
             'titulo': data['titulo'],
             'contenido': data['contenido'],
             'estado': data['estado'],
-            'id_autor': data['id_autor'],
+            # 'id_autor': data['id_autor'],
         }
         resultado = create_post_db(post)
         return jsonify(resultado)

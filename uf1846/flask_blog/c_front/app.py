@@ -102,7 +102,7 @@ def create_post():
         data = {
             'titulo': request.form['titulo'],
             'contenido': request.form['contenido'],
-            'id_author': session.get('user_id'),
+            # 'id_author': session.get('user_id'),
             'estado': request.form['estado']
         }
 

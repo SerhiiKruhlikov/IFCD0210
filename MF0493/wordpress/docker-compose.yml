@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # База данных MySQL
+  db:
+    image: mysql:8.0
+    container_name: wordpress_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - wordpress_network
+
+  # WordPress приложение
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppassword
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+      - ./wp-content:/var/www/html/wp-content  # Для удобного доступа к темам/плагинам
+    ports:
+      - "8080:80"
+    networks:
+      - wordpress_network
+
+# Тома для persistent данных
+volumes:
+  db_data:
+  wp_data:
+
+# Сеть для связи контейнеров
+networks:
+  wordpress_network:
+    driver: bridge
