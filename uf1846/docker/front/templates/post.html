@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	{% if post %}
+		<h2>{{post.titulo}}</h2>
+		<p>{{post.f_creacion}}</p>
+		{{post.contenido|safe}}
+	{% endif %}
+	<a href="/">Volver</a>
+{% endblock %}

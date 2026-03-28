@@ -1,0 +1,83 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: flask_blog_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: exampleDb
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - flask_blog_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpassword123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  datos:
+    build:
+      context: .
+      dockerfile: datos/Dockerfile
+    container_name: flask_blog_datos
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: rootpassword123
+      DB_NAME: exampleDb
+      DB_PORT: 3306
+    ports:
+      - "5083:5003"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - flask_blog_network
+    volumes:
+      - ./datos:/app
+    command: python app.py
+
+  negocio:
+    build:
+      context: .
+      dockerfile: negocio/Dockerfile
+    container_name: flask_blog_negocio
+     environment:
+      DATOS_URL: http://datos:5003
+    ports:
+      - "5082:5002"
+    depends_on:
+      - datos
+    networks:
+      - flask_blog_network
+    volumes:
+      - ./negocio:/app
+    command: python app.py
+
+  front:
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+    container_name: flask_blog_front
+    environment:
+      NEGOCIO_URL: http://negocio:5002
+    ports:
+      - "5081:5001"
+    depends_on:
+      - negocio
+    networks:
+      - flask_blog_network
+    volumes:
+      - ./front:/app
+    command: python app.py
+
+networks:
+  flask_blog_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
